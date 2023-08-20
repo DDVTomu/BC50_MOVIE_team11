@@ -11,7 +11,7 @@ export const actFetchDetailMovie = (id) => {
     dispatch(actDetailMovieRequest());
 
     api
-      .get(`QuanLyPhim/LayThongTinLichChieuPhim?MaPhim=${id}`)
+      .get(`QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${id}`)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actDetailMovieSuccess(result.data.content));

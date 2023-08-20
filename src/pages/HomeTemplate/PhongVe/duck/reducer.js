@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   data: null,
   error: null,
+  orderList: [],
 };
 
 const listPhongVeReducer = (state = initialState, action) => {
@@ -23,6 +24,7 @@ const listPhongVeReducer = (state = initialState, action) => {
       state.loading = false;
       state.data = action.payload;
       state.error = null;
+
       return { ...state };
     }
 

@@ -9,7 +9,24 @@ import api from "utils/apiUtil";
 export const actFetchLichChieu = () => {
   return (dispatch) => {
     dispatch(actLichChieuRequest());
-    
+
+    api
+      .get("QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP11")
+      .then((result) => {
+        if (result.data.statusCode === 200) {
+          dispatch(actLichChieuSuccess(result.data.content));
+        }
+      })
+      .catch((error) => {
+        dispatch(actLichChieuFail(error));
+      });
+  };
+};
+
+export const actFetchHeThongRap = () => {
+  return (dispatch) => {
+    dispatch(actLichChieuRequest());
+
     api
       .get("QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP11")
       .then((result) => {

@@ -18,9 +18,9 @@ class ListMoviePage extends Component {
   render() {
     return (
       <div className="container">
-        <GetLich />
         <h3>ListMoviePage</h3>
-        <div className="row">{this.renderListMovie()}</div> 
+        <div className="row">{this.renderListMovie()}</div>
+        <GetLich />
       </div>
     );
   }

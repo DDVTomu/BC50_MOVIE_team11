@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import { actFetchPhongVe } from "./duck/actions";
+import { actFetchPhongVe, actGetSeat, actRemoveSeat } from "./duck/actions";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 export default function PhongVe() {
@@ -12,6 +12,23 @@ export default function PhongVe() {
   const { checked, isChecked } = useState(false);
   useEffect(() => dispatch(actFetchPhongVe(params.id)), []);
 
+  const handleChange = (event) => {
+    const seat = event.target.value;
+
+    if (event.target.checked) {
+      console.log(`✅ ${event.target.name} is checked`);
+    } else {
+      console.log(`⛔️ ${event.target.name} is NOT checked`);
+    }
+
+    if (event.target.checked === true) {
+      dispatch(actGetSeat(seat));
+    } else {
+      dispatch(actRemoveSeat(seat));
+    }
+    // setIsSubscribed((current) => !current);
+  };
+
   const danhSachGhe = data?.danhSachGhe;
   const thongTinPhim = data?.thongTinPhim;
   const chunkSize = 16;
@@ -21,6 +38,14 @@ export default function PhongVe() {
     for (let i = 0; i < danhSachGhe.length; i += chunkSize) {
       chunkedGhe.push(danhSachGhe.slice(i, i + chunkSize));
     }
+  }
+
+  const orderList = useSelector((state) => state.listPhongVeReducer.orderList);
+  let giaVe = 0;
+  if (orderList) {
+    orderList?.map((order, key) => {
+      return (giaVe = giaVe + Number(order.giaVe));
+    });
   }
 
   return (
@@ -69,6 +94,19 @@ export default function PhongVe() {
                     Tên cụm rạp: <span>{thongTinPhim?.tenCumRap}</span>
                   </label>
                 </div>
+                <div>
+                  <label>
+                    Chọn:
+                    {orderList?.map((order, key) => {
+                      return (
+                        <>
+                          <span> Ghế {order?.tenGhe},</span>
+                        </>
+                      );
+                    })}
+                  </label>
+                </div>
+                <div>Giá vé: {giaVe}</div>
               </div>
             </div>
             <div className="w3ls-reg">
@@ -121,25 +159,20 @@ export default function PhongVe() {
                     {chunkedGhe.map((chunk, rowIndex) => (
                       <ul className="seat-list">
                         {chunk.map((chair) => {
+                          const value = JSON.stringify(chair);
                           return (
                             <li className="cat">
                               <label
                                 className={chair.loaiGhe === "Vip" ? "vip" : ""}
                                 style={{ marginBottom: "0px" }}
                               >
-                                {/* <input
-                              class="filter-chk"
-                              type="checkbox"
-                              value="rewards"
-                              name="cardtypes"
-                              data-cat-id="39"
-                            /> */}
                                 <input
+                                  name={`seat ${chair.tenGhe}`}
                                   type="checkbox"
                                   className={"seats"}
-                                  value={chair.tenGhe}
+                                  value={value}
                                   disabled={chair.daDat}
-                                  // onClick={handleChange}
+                                  onClick={handleChange}
                                   checked={checked}
                                 />
                                 <span>{chair.tenGhe}</span>

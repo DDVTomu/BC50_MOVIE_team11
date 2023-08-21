@@ -2,6 +2,8 @@ import {
   LIST_PHONGVE_REQUEST,
   LIST_PHONGVE_SUCCESS,
   LIST_PHONGVE_FAIL,
+  GET_SEAT,
+  REMOVE_SEAT,
 } from "./constants";
 import api from "utils/apiUtil";
 
@@ -42,3 +44,19 @@ const actPhongVeFail = (error) => {
     payload: error,
   };
 };
+
+const actGetSeat = (value) => {
+  return {
+    type: GET_SEAT,
+    payload: value,
+  };
+};
+
+const actRemoveSeat = (value) => {
+  return {
+    type: REMOVE_SEAT,
+    payload: value,
+  };
+};
+
+export { actGetSeat, actRemoveSeat };

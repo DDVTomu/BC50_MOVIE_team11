@@ -36,7 +36,7 @@ export default class Navbar extends Component {
                 className={({ isActive }) =>
                   isActive ? "my-active nav-link" : "nav-link"
                 }
-                to="/list-movie"
+                to="/"
               >
                 List Movie
               </NavLink>

@@ -6,16 +6,16 @@ const routes = [
     path: "",
     element: lazy(() => import("pages/HomeTemplate")),
     nested: [
-      {
-        path: "",
-        element: lazy(() => import("pages/HomeTemplate/HomePage")),
-      },
+      // {
+      //   path: "",
+      //   element: lazy(() => import("pages/HomeTemplate/HomePage")),
+      // },
       {
         path: "about",
         element: lazy(() => import("pages/HomeTemplate/AboutPage")),
       },
       {
-        path: "list-movie",
+        path: "",
         element: lazy(() => import("pages/HomeTemplate/ListMoviePage")),
       },
       {

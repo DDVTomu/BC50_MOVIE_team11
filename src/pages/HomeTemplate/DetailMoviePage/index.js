@@ -17,11 +17,22 @@ function DetailMoviePage(props) {
   }, []);
 
   if (loading) return <Loader />;
+
+  const bg = {
+    background: `url(${data && data.hinhAnh})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    overflow: "hidden",
+  };
+
+  const youtubeUrl = data && data?.trailer;
+  // Use a regular expression to extract the video ID
+  const match = youtubeUrl?.match(/[?&]v=([^&]+)/);
+  const videoCode = match != null ? match[1] : "";
   return (
-    <>
-      <div className="container">
-        <h3>DetailMoviePage</h3>
-        <div style={{ display: "flex" }}>
+    <div className="detail-main" style={bg}>
+      <div className="detail-phim container">
+        <div className="detail-phim-box" style={{ display: "flex" }}>
           <div>
             <img src={data && data.hinhAnh} />
           </div>
@@ -38,10 +49,19 @@ function DetailMoviePage(props) {
             </tbody>
           </table>
         </div>
+        <iframe
+          width="100%"
+          height="600px"
+          src={`https://www.youtube.com/embed/${videoCode}`}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
-      <section>
+      <section className="lich-section">
         <div className="container">
-          <Tabs>
+          <Tabs className="tab-level-1">
             <TabList>
               {" "}
               {data &&
@@ -49,7 +69,6 @@ function DetailMoviePage(props) {
                   return (
                     <Tab>
                       <img src={rap.logo} width={64} height={64} />
-                      <span>{rap.tenHeThongRap}</span>
                     </Tab>
                   );
                 })}
@@ -58,27 +77,37 @@ function DetailMoviePage(props) {
             {data &&
               data?.heThongRapChieu.map((rap, key) => {
                 return (
-                  <TabPanel>
+                  <TabPanel className="tab-lichchieu">
                     {rap.cumRapChieu.map((cumRap, key) => {
                       return (
                         <>
-                          <h3 key={key}>{cumRap.tenCumRap}</h3>
-                          <p>Ngày chiếu</p>
-                          <ul>
-                            {cumRap?.lichChieuPhim.map((lichChieu, key) => {
-                              return (
-                                <li key={key}>
-                                  <a href={`/phongve/${lichChieu.maLichChieu}`}>
-                                    <p>
-                                      {moment(
-                                        lichChieu.ngayChieuGioChieu
-                                      ).format("MM/DD/YYYY")}
-                                    </p>
-                                  </a>
-                                </li>
-                              );
-                            })}
-                          </ul>
+                          <div className="rap">
+                            {" "}
+                            <h3 className="rap-name" key={key}>
+                              {cumRap.tenCumRap}
+                            </h3>
+                          </div>
+
+                          <div className="phim-calendar">
+                            <p>Thời gian chiếu</p>
+                            <ul>
+                              {cumRap?.lichChieuPhim.map((lichChieu, key) => {
+                                return (
+                                  <li key={key}>
+                                    <a
+                                      href={`/phongve/${lichChieu.maLichChieu}`}
+                                    >
+                                      <p>
+                                        {moment(
+                                          lichChieu.ngayChieuGioChieu
+                                        ).format("MM/DD/YYYY ~ (HH:mm)")}
+                                      </p>
+                                    </a>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
                         </>
                       );
                     })}
@@ -88,7 +117,7 @@ function DetailMoviePage(props) {
           </Tabs>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

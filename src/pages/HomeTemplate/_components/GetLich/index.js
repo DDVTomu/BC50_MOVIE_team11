@@ -10,15 +10,13 @@ export default function GetLich() {
   const { data, loading } = useSelector((state) => state.listLichChieuReducer);
   useEffect(() => dispatch(actFetchLichChieu()), []);
   return (
-    <div>
-      Hello
-      <Tabs>
+    <section className="lich-section">
+      <Tabs className="tab-level-1">
         <TabList>
           {data?.map((tenRap, key) => {
             return (
               <Tab>
                 <img src={tenRap?.logo} width={64} height={64}></img>
-                <span> {tenRap?.tenHeThongRap}</span>
               </Tab>
             );
           })}
@@ -27,13 +25,18 @@ export default function GetLich() {
         {data?.map((tenRap, key) => {
           return (
             <TabPanel>
-              <Tabs>
+              <Tabs className="tab-level-2">
                 <TabList>
                   {tenRap?.lstCumRap.map((cumRap, key) => {
                     return (
                       <Tab>
                         {" "}
-                        <h3 key={key}>{cumRap.tenCumRap}</h3>
+                        <div className="rap">
+                          <h3 className="rap-name" key={key}>
+                            {cumRap.tenCumRap}
+                          </h3>
+                          <p className="rap-diachi">{cumRap.diaChi}</p>
+                        </div>
                       </Tab>
                     );
                   })}
@@ -43,29 +46,64 @@ export default function GetLich() {
                     <TabPanel>
                       {cumRap?.danhSachPhim.map((phim, key) => {
                         return (
-                          <>
-                            <h4>{phim.tenPhim}</h4>
-                            <p>Ngày chiếu</p>
-                            <ul>
-                              {phim?.lstLichChieuTheoPhim.map(
-                                (lichChieu, key) => {
-                                  return (
-                                    <li key={key}>
-                                      <a
-                                        href={`/phongve/${lichChieu.maLichChieu}`}
-                                      >
-                                        <p>
-                                          {moment(
-                                            lichChieu.ngayChieuGioChieu
-                                          ).format("MM/DD/YYYY HH:mm")}
-                                        </p>
-                                      </a>
-                                    </li>
-                                  );
-                                }
-                              )}
-                            </ul>
-                          </>
+                          <div className="phim">
+                            <div className="phim-desc">
+                              <img
+                                src={phim.hinhAnh}
+                                width={100}
+                                height={126}
+                              />
+                              <div className="phim-title">
+                                <h4 className="phim-title-name">
+                                  {phim.hot ? (
+                                    <span className="phim-tags-hot">Hot</span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {phim.tenPhim}
+                                </h4>
+                                <div className="phim-tags">
+                                  {phim.dangChieu ? (
+                                    <span className="phim-tags-progress">
+                                      Phim Đang Chiếu
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {phim.sapChieu ? (
+                                    <span className="phim-tags-upcoming">
+                                      Phim Sắp Chiếu
+                                    </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="phim-calendar">
+                              <p>Thời gian chiếu: </p>
+                              <ul className>
+                                {phim?.lstLichChieuTheoPhim.map(
+                                  (lichChieu, key) => {
+                                    return (
+                                      <li key={key}>
+                                        <a
+                                          href={`/phongve/${lichChieu.maLichChieu}`}
+                                        >
+                                          <p>
+                                            {moment(
+                                              lichChieu.ngayChieuGioChieu
+                                            ).format("MM/DD/YYYY ~ (HH:mm)")}
+                                          </p>
+                                        </a>
+                                      </li>
+                                    );
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </div>
                         );
                       })}
                     </TabPanel>
@@ -76,6 +114,6 @@ export default function GetLich() {
           );
         })}
       </Tabs>
-    </div>
+    </section>
   );
 }

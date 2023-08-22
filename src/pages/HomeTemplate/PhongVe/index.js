@@ -48,55 +48,53 @@ export default function PhongVe() {
     });
   }
 
+  const imgSrc = thongTinPhim?.hinhAnh
+
+  const bg = {
+    backgroundImage: `url(${imgSrc})`,
+    overflow: "hidden",
+  };
+
   return (
     <>
       {" "}
-      <section>
+      <section className="phongve-section" style={bg}>
         <div className="container">
-          <h1>Chọn ghế</h1>
-          <div>
+          <div className="detail-phim-box" style={{ display: "flex" }}>
             <div>
-              <div>
-                <img src={thongTinPhim?.hinhAnh} />
-              </div>
-              <div>
-                <div>
-                  <label>
-                    Tên Phim: <span>"{thongTinPhim?.tenPhim}"</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Thời gian:{" "}
-                    <span>
-                      {thongTinPhim?.ngayChieu} - ({thongTinPhim?.gioChieu})
-                    </span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Tên Cụm Rạp: <span>{thongTinPhim?.tenCumRap}</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Địa Chỉ: <span>{thongTinPhim?.diaChi}</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Tên Rạp: <span>{thongTinPhim?.tenRap}</span>
-                  </label>
-                </div>
+              <img src={data && thongTinPhim?.hinhAnh} />
+            </div>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <td>Tên Phim</td>
+                  <td>{thongTinPhim?.tenPhim}</td>
+                </tr>
+                <tr>
+                  <td>Thời gian: </td>
+                  <td>
+                    {thongTinPhim?.ngayChieu} - ({thongTinPhim?.gioChieu})
+                  </td>
+                </tr>
 
-                <div>
-                  <label>
-                    Tên cụm rạp: <span>{thongTinPhim?.tenCumRap}</span>
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    Chọn:
+                <tr>
+                  <td>Tên cụm rạp: </td>
+                  <td>{thongTinPhim?.tenRap}</td>
+                </tr>
+
+                <tr>
+                  <td>Tên Rạp: </td>
+                  <td>{thongTinPhim?.tenCumRap}</td>
+                </tr>
+
+                <tr>
+                  <td>Địa Chỉ: </td>
+                  <td>{thongTinPhim?.diaChi}</td>
+                </tr>
+
+                <tr>
+                  <td>Chọn: </td>
+                  <td>
                     {orderList?.map((order, key) => {
                       return (
                         <>
@@ -104,11 +102,17 @@ export default function PhongVe() {
                         </>
                       );
                     })}
-                  </label>
-                </div>
-                <div>Giá vé: {giaVe}</div>
-              </div>
-            </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Giá Vé: </td>
+                  <td>{giaVe} VND</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="select-seat">
             <div className="w3ls-reg">
               <ul className="template-seats">
                 <li className="cat">

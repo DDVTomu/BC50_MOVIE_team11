@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import listMovieReducer from "pages/HomeTemplate/ListMoviePage/duck/reducer";
 import detailMovieReducer from "pages/HomeTemplate/DetailMoviePage/duck/reducer";
-import addUserReducer from "pages/AdminTemplate/AddUser/duck/reducer";
 import listLichChieuReducer from "pages/HomeTemplate/_components/GetLich/duck/reducer";
 import listPhongVeReducer from "pages/HomeTemplate/PhongVe/duck/reducer";
 import listBannerReducer from "pages/HomeTemplate/_components/Banner/duck/reducer";
@@ -10,7 +9,6 @@ import listBannerReducer from "pages/HomeTemplate/_components/Banner/duck/reduce
 import loginReducer from "../pages/AdminTemplate/LoginPage/duck/reducer";
 
 import manageUserReducer from './../pages/AdminTemplate/Dashboard/duck/reducer';
-import addNewUserReducer from './../pages/AdminTemplate/Dashboard/AddUser/duck/reducer';
 import {
   updateUserReducer,
   detailUserReducer,
@@ -31,7 +29,6 @@ const rootReducer = combineReducers({
   //child reducer
   listMovieReducer,
   detailMovieReducer,
-  addUserReducer,
   listLichChieuReducer,
   listPhongVeReducer,
   listBannerReducer,
@@ -40,7 +37,6 @@ const rootReducer = combineReducers({
   loginReducer,
 
   manageUserReducer,
-  addNewUserReducer,
   updateUserReducer,
   detailUserReducer,
 

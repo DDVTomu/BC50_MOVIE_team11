@@ -7,6 +7,11 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 
 import "./index.scss";
 import "./scss/index.scss";
+
+import "./index.css";
+import './components/sb-admin-2.min.css';
+import './components/fontawesome-free/css/all.min.css';
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";

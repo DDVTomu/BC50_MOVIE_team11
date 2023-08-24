@@ -6,10 +6,10 @@ const routes = [
     path: "",
     element: lazy(() => import("pages/HomeTemplate")),
     nested: [
-      // {
-      //   path: "",
-      //   element: lazy(() => import("pages/HomeTemplate/HomePage")),
-      // },
+      {
+        path: "",
+        element: lazy(() => import("pages/HomeTemplate/HomePage")),
+      },
       {
         path: "about",
         element: lazy(() => import("pages/HomeTemplate/AboutPage")),
@@ -34,22 +34,53 @@ const routes = [
   },
   {
     path: "admin",
-    element: lazy(() => import("pages/AdminTemplate")),
+    element: lazy(() => import("./../pages/AdminTemplate")),
     nested: [
       {
         path: "dashboard",
-        element: lazy(() => import("pages/AdminTemplate/Dashboard")),
+        element: lazy(() => import("./../pages/AdminTemplate/Dashboard")),
+        pageTitle: "Danh sách người dùng"
       },
       {
         path: "add-user",
-        element: lazy(() => import("pages/AdminTemplate/AddUser")),
+        element: lazy(() => import("../pages/AdminTemplate/Dashboard/AddUser")),
+        pageTitle: "Thêm người dùng"
       },
+      {
+        path: "edit-user/:id",
+        element: lazy(() => import("../pages/AdminTemplate/Dashboard/EditUser")),
+        pageTitle: "Chỉnh sửa người dùng"
+      },
+      {
+        path: "film",
+        element: lazy(() => import("../pages/AdminTemplate/Film")),
+        pageTitle: "Danh sách phim"
+      },
+      {
+        path: "add-film",
+        element: lazy(() => import("../pages/AdminTemplate/Film/AddFilm")),
+        pageTitle: "Thêm phim"
+      },
+      {
+        path: "edit-film/:id",
+        element: lazy(() => import("../pages/AdminTemplate/Film/EditFilm")),
+        pageTitle: "Chỉnh sửa phim"
+      },
+      {
+        path: "/admin/show-time/:id/:name",
+        element: lazy(() => import("../pages/AdminTemplate/Film/Showtime")),
+        pageTitle: "Tạo lịch chiếu"
+      }
     ],
   },
   {
     path: "auth",
-    element: lazy(() => import("pages/AdminTemplate/AuthPage")),
+    element: lazy(() => import("./../pages/AdminTemplate/LoginPage")),
   },
+  {
+    path: "register",
+    element: lazy(() => import("../pages/AdminTemplate/RegisterPage")),
+  }
 ];
 
 const renderRoutes = () => {

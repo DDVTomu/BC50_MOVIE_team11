@@ -1,28 +1,52 @@
-import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import { Navigate, useNavigate } from "react-router-dom";
-import Navbar from "./_components/Navbar";
-import { actTryLogin } from "pages/AdminTemplate/AuthPage/duck/actions";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export default function AdminTemplate() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+import Sidebar from "./_components/Sidebar";
+import Topbar from "./_components/Topbar";
 
-  useEffect(() => {
-    dispatch(actTryLogin(navigate));
-  }, []);
+const AdminTemplate = ({ children }) => {
+  //===================================================================================================
+  //Check login
+  // if (!localStorage.getItem('UserAdmin')) {
+  //   return <Navigate to='/auth' replace />
+  // }
 
-  //kiểm tra có login vào hệ thống chưa?
-  if (!localStorage.getItem("UserAdmin")) {
-    // redirect => auth
-    return <Navigate to="/auth" replace />;
-  }
+  // const [pageTitle, setPageTitle] = useState("");
+
+  // useEffect(() => {
+  //   // Update pageTitle here based on the current route or other logic
+  //   setPageTitle("Title for the current page");
+  // }, []);
 
   return (
-    <div>
-      <Navbar />
-      <Outlet />
+    <div className="flex w-screen h-screen">
+      {/* Sidebar */}
+      <Sidebar />
+
+      <div className="flex-1 flex flex-col">
+        {/* Topbar */}
+        {/* <Topbar pageTitle={pageTitle} /> */}
+        <Topbar />
+
+        {/* Page Content */}
+        <div className="flex-1 overflow-y-auto bg-gray-100 p-4">
+          <div className="container mx-auto">
+            <Outlet />
+          </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="sticky-footer bg-white">
+          <div className="container my-auto">
+            <div className="copyright text-center my-auto">
+              <span>Copyright © Your Website 2023</span>
+            </div>
+          </div>
+        </footer>
+        {/* End of Footer */}
+      </div>
     </div>
   );
-}
+};
+
+export default AdminTemplate;

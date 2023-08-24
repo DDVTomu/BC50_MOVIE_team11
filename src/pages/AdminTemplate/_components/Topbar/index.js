@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Topbar({ pageTitle }) {
   console.log('Topbar rendering'); // Add this line
@@ -14,10 +14,10 @@ export default function Topbar({ pageTitle }) {
         <i className='fa fa-bars' />
       </button>
 
-      <div className="bg-white">
+      <div className='bg-white'>
         {/* ... */}
-        <div className="flex items-center justify-start">
-          <h2 className="text-xl font-semibold">{pageTitle}</h2>
+        <div className='flex items-center justify-start'>
+          <h2 className='text-xl font-semibold'>{pageTitle}</h2>
         </div>
         {/* ... */}
       </div>

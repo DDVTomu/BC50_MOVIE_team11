@@ -3,18 +3,18 @@ import { actRegister } from './duck/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, NavLink } from 'react-router-dom';
 
-export default function RegisterPage() {
+export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.registerReducer.error);
+  const error = useSelector((state) => state.registerReducer);
 
   const [state, setState] = useState({
-    hoTen: "",
-    taiKhoan: "",
-    matKhau: "",
-    email: "",
-    soDt: "",
-    maNhom: "GP01",
+    hoTen: '',
+    taiKhoan: '',
+    matKhau: '',
+    email: '',
+    soDt: '',
+    maNhom: 'GP01',
   });
 
   const handleOnchange = (e) => {
@@ -31,64 +31,123 @@ export default function RegisterPage() {
   };
 
   const renderError = () => {
-    return <div div className='alert alert-danger'>{error.response.data.content}</div>
+    return (
+      error && (
+        <div className='alert alert-danger'>{error}</div>
+      )
+    );
   };
 
   return (
-    <div className="wrapper fadeInDown">
-      <div id="formContent">
+    <div>
+      <div className="container">
+        <div className="card bg-light">
+          <article className="card-body mx-auto" style={{ maxWidth: 400 }}>
+            <div
+              className="mt-3  text-center text-3xl text-blue-900 font-medium">
+              ĐĂNG KÝ
+            </div>
+            <hr className='h-divider my-3'/>
+            <form
+              onSubmit={handleSubmit}
+            >
+              <div className="form-group input-group">
+                <div className="input-group-prepend">
+                  <span
+                    className="input-group-text">
+                    <i className="fa fa-user" />
+                  </span>
+                </div>
+                <input
+                  name='hoTen'
+                  className="form-control"
+                  placeholder="Họ tên"
+                  type="text"
+                  onChange={handleOnchange}
+                />
+              </div> {/* form-group// */}
 
-        <div className="fadeIn first p-5 bg-yellow-200 text-gray-600 text-2xl font-medium">
-          <p>ĐĂNG KÝ</p>
-        </div>
+              <div className="form-group input-group">
+                <div className="input-group-prepend">
+                  <span
+                    className="input-group-text">
+                    <i className="fa fa-building" />
+                  </span>
+                </div>
+                <input
+                  name='taiKhoan'
+                  className="form-control"
+                  placeholder="Tên đăng nhập"
+                  type="text"
+                  onChange={handleOnchange}
+                />
+              </div> {/* form-group// */}
 
-        <form onSubmit={handleSubmit}>
-          <div className=" mt-3">
-            {/* <div className="card-body " > */}
+              <div className="form-group input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fa fa-lock" />
+                  </span>
+                </div>
+                <input
+                  name='matKhau'
+                  className="form-control"
+                  placeholder="Create password"
+                  type="text"
+                />
+              </div> {/* form-group// */}
 
-              <div className="flex justify-end">
-                <div>Họ Tên</div>
-                <input type="text" name='hoTen' className="form-control" onChange={handleOnchange} />
-              </div>
+              <div className="form-group input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fa fa-envelope" />
+                  </span>
+                </div>
+                <input
+                  name='email'
+                  className="form-control"
+                  placeholder="Email"
+                  type="email"
+                />
+              </div> {/* form-group// */}
 
-              <div className="flex justify-end">
-                <label>Tên đăng nhập</label>
-                <input type="text" name='taiKhoan' className="form-control" onChange={handleOnchange} />
-              </div>
+              <div className="form-group input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fa fa-phone" />
+                  </span>
+                </div>
+                <input
+                  name='soDt'
+                  className="form-control"
+                  placeholder="Số điện thoại"
+                  type="text"
+                />
+              </div> {/* form-group// */}
+
+              {error && renderError}
 
               <div className="form-group">
-                <label>Mật khẩu</label>
-                <input type="text" name='matKhau' className="form-control" onChange={handleOnchange} />
-              </div>
+                <button
+                  type="submit"
+                  className="btn btn-success btn-block"> Đăng Ký
+                </button>
+              </div> {/* form-group// */}
 
-              <div className="form-group">
-                <label>Email</label>
-                <input type="text" name='email' className="form-control" onChange={handleOnchange} />
-              </div>
-
-              <div className="form-group">
-                <label>Số Điện Thoại</label>
-                <input type="text" name='soDt' className="form-control" onChange={handleOnchange} />
-              </div>
-              {error && renderError()}
-
-              <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 20 }}>
-                <button className='btn btn-success w-100' >Đăng Ký</button>
-              </div>
-
-              <div className='btn-redirect-login mt-3'>
+              <div className='btn-redirect-login text-center'>
                 <div>
                   <NavLink to={'/auth'} className=''>
-                    <h3>Bạn đã có tài khoản!!! Hãy đăng nhập tại đây</h3>
+                    <p>Bạn đã có tài khoản! Hãy đăng nhập tại đây</p>
                   </NavLink>
                 </div>
               </div>
-
-            {/* </div> */}
-          </div>
-        </form>
-
+            </form>
+          </article>
+          
+        </div> {/* card.// */}
       </div>
+      {/*container end.//*/}
     </div>
+
   )
 }

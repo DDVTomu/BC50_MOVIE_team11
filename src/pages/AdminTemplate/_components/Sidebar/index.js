@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
   const [isToggled, setIsToggled] = useState(false);
@@ -47,11 +47,11 @@ export default function Sidebar() {
       id='accordionSidebar'
     >
       {/* Sidebar - Brand */}
-      <div className="logo-container text-center logo-test py-1">
+      <div className='logo-container text-center logo-test py-1'>
         <img
-          className="logo w-full mx-auto"
-          src="https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png"
-          alt="Logo"
+          className='logo w-full mx-auto'
+          src='https://cybersoft.edu.vn/wp-content/uploads/2022/10/cyberlogo-white.png'
+          alt='Logo'
         />
       </div>
 
@@ -59,7 +59,7 @@ export default function Sidebar() {
 
       {/* Nav Item - Dashboard */}
       <h5
-        className="custom-dashboard mb-2 font-medium"
+        className='custom-dashboard mb-2 font-medium'
       >
         DASHBOARD
       </h5>

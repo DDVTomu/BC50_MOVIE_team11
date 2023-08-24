@@ -43,7 +43,7 @@ const EditFilm = (props) => {
     },
 
     onSubmit: (values) => {
-      values.maNhom = 'GP03'
+      values.maNhom = 'GP01'
       let formData = new FormData();
       for (let key in values) {
         if (key !== 'hinhAnh') {
@@ -92,10 +92,10 @@ const EditFilm = (props) => {
   return (
     <Fragment>
       <div
-        className="heading-page text-yellow-700">
+        className='heading-page text-yellow-700'>
         CHỈNH SỬA THÔNG TIN
       </div>
-      <hr className="h-divider mb-4" />
+      <hr className='h-divider mb-4' />
       <Form
         onSubmitCapture={formik.handleSubmit}
         labelCol={{
@@ -104,7 +104,7 @@ const EditFilm = (props) => {
         wrapperCol={{
           span: 14,
         }}
-        layout="horizontal"
+        layout='horizontal'
         initialValues={{
           size: componentSize,
         }}
@@ -112,58 +112,59 @@ const EditFilm = (props) => {
         size={componentSize}
       >
         <Form.Item
-          label="Kích thước chữ"
-          name="size"
+          label='Kích thước chữ'
+          name='size'
         >
           <Radio.Group>
-            <Radio.Button value="small">Small</Radio.Button>
-            <Radio.Button value="default">Default</Radio.Button>
-            <Radio.Button value="large">Large</Radio.Button>
+            <Radio.Button value='small'>Small</Radio.Button>
+            <Radio.Button value='default'>Default</Radio.Button>
+            <Radio.Button value='large'>Large</Radio.Button>
           </Radio.Group>
         </Form.Item>
 
         <Form.Item
-          label="Tên phim"
+          label='Tên phim'
         >
           <Input
-            name="tenPhim"
+            name='tenPhim'
             onChange={formik.handleChange}
             value={data && data.tenPhim}
           />
         </Form.Item>
 
+
         <Form.Item
-          label="Trailer"
+          label='Trailer'
         >
           <Input
-            name="trailer"
+            name='trailer'
             onChange={formik.handleChange}
             value={data && data.trailer}
           />
         </Form.Item>
 
         <Form.Item
-          label="Mô tả"
+          label='Mô tả'
         >
           <Input
-            name="moTa"
+            name='moTa'
             onChange={formik.handleChange}
             value={data && data.moTa}
           />
         </Form.Item>
 
         <Form.Item
-          label="Ngày khởi chiếu"
+          label='Ngày khởi chiếu'
         >
           <DatePicker
-            format="DD/MM/YYYY"
+            format='DD/MM/YYYY'
             onChange={handleChangeDate}
             value={data && moment(data.ngayKhoiChieu)}
           />
         </Form.Item>
 
         <Form.Item
-          label="Đang chiếu"
+          label='Đang chiếu'
         >
           <Switch
             checked={formik.values.dangChieu}
@@ -172,7 +173,7 @@ const EditFilm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Sắp chiếu"
+          label='Sắp chiếu'
         >
           <Switch
             checked={formik.values.sapChieu}
@@ -181,7 +182,7 @@ const EditFilm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Hot"
+          label='Hot'
         >
           <Switch
             checked={formik.values.hot}
@@ -190,7 +191,7 @@ const EditFilm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Số sao"
+          label='Số sao'
         >
           <InputNumber
             min={1}
@@ -201,25 +202,25 @@ const EditFilm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="Hình ảnh"
+          label='Hình ảnh'
         >
           <input
-            type="file"
+            type='file'
             onChange={handleChangeFile}
-            accept="image/png, image/jpeg,image/gif,image/png"
+            accept='image/png, image/jpeg,image/gif,image/png'
           /><br />
 
           <img
             style={{ width: 150, height: 150 }}
             src={imgSrc === '' ? data?.hinhAnh : imgSrc}
-            alt="..."
+            alt='...'
           />
         </Form.Item>
 
-        <Form.Item label="Thao tác">
+        <Form.Item label='Thao tác'>
           <button
-            type="submit"
-            className="rounded-md bg-yellow-500 text-white p-2"
+            type='submit'
+            className='rounded-md bg-yellow-500 text-white p-2'
           >
             Cập nhật
           </button>

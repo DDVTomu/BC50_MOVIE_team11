@@ -73,10 +73,6 @@ const routes = [
       }
     ],
   },
-  // {
-  //   path: "auth",
-  //   element: lazy(() => import("pages/AdminTemplate/AuthPage")),
-  // },
   {
     path: "auth",
     element: lazy(() => import("./../pages/AdminTemplate/LoginPage")),

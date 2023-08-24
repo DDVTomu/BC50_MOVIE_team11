@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Form,
-    Button,
     Select,
     DatePicker,
     InputNumber
@@ -43,14 +42,6 @@ function ShowTime(props) {
         },
     });
 
-    // NOT SUCCESS
-    //=================================
-    // const handleChangeHeThongRap = async (value) => {
-    //     // Dispatch action for fetching cinema details based on cinema chain id
-    //     dispatch(actDetailCinema(value));
-    // };
-    //=================================
-
     const handleChangeHeThongRap = async (value) => {
         const selectedCinema = dataDetailCinema.find(cinema => cinema.maHeThongRap === value);
         if (selectedCinema) {
@@ -61,9 +52,12 @@ function ShowTime(props) {
         }
     };
 
+    // NOT SUCCESS
+    //=================================
     const handleChangeCumRap = (value) => {
         formik.setFieldValue('maRap', value);
     };
+    //=================================
 
     const onOk = (values) => {
         formik.setFieldValue('ngayChieuGioChieu', moment(values).format('DD/MM/YYYY hh:mm:ss'));
@@ -87,64 +81,64 @@ function ShowTime(props) {
     return (
         <Fragment>
             <div
-                className="heading-page text-green-700">
+                className='heading-page text-green-700'>
                 THÊM LỊCH CHIẾU MỚI
             </div>
-            <hr className="h-divider mb-4" />
+            <hr className='h-divider mb-4' />
             <Form
-                name="basic"
+                name='basic'
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 onSubmitCapture={formik.handleSubmit}
             >
                 <h3
-                    className="text-2xl text-center"
+                    className='text-2xl text-center'
                 >{name}
                 </h3>
                 <div
-                    className="flex justify-center my-4"
+                    className='flex justify-center my-4'
                 >
                     <img
                         style={{ width: 300, height: 300 }}
                         src={imgSrc === '' ? dataImg?.hinhAnh : imgSrc}
-                        alt="..."
+                        alt='...'
                     />
                 </div>
 
-                <Form.Item label="Hệ thống rạp">
+                <Form.Item label='Hệ thống rạp'>
                     <Select
                         options={convertSelectHTR()}
                         onChange={handleChangeHeThongRap}
-                        placeholder="Chọn hệ thống rạp"
+                        placeholder='Chọn hệ thống rạp'
                     />
                 </Form.Item>
 
-                <Form.Item label="Cụm rạp">
+                <Form.Item label='Cụm rạp'>
                     <Select
                         options={state.cumRapChieu?.map((cumRap, index) => ({
                             label: cumRap.tenRap,
                             value: cumRap.maRap
                         }))}
                         onChange={handleChangeCumRap}
-                        placeholder="Chọn cụm rạp"
+                        placeholder='Chọn cụm rạp'
                     />
                 </Form.Item>
 
-                <Form.Item label="Ngày chiếu giờ chiếu">
+                <Form.Item label='Ngày chiếu giờ chiếu'>
                     <DatePicker
-                        format="DD/MM/YYYY hh:mm:ss" showTime onChange={onChangeDate}
+                        format='DD/MM/YYYY hh:mm:ss' showTime onChange={onChangeDate}
                         onOk={onOk} />
                 </Form.Item>
 
-                <Form.Item label="Giá vé">
+                <Form.Item label='Giá vé'>
                     <InputNumber
                         onChange={onchangeInputNumber} />
                 </Form.Item>
 
-                <Form.Item label="Thao tác">
+                <Form.Item label='Thao tác'>
                     <button
-                        type="submit"
-                        className="rounded-md bg-cyan-500 text-white p-2"
+                        type='submit'
+                        className='rounded-md bg-cyan-500 text-white p-2'
                     >
                         Tạo lịch chiếu
                     </button>

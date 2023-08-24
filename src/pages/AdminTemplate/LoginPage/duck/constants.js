@@ -1,4 +1,4 @@
-export const AUTH_REQUEST = 'AUTH_REQUEST';
-export const AUTH_SUCCESS = 'AUTH_SUCCESS';
-export const AUTH_FAIL = 'AUTH_FAIL';
-export const AUTH_CLEAR = 'AUTH_CLEAR';
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAIL = 'LOG_IN_FAIL';
+export const LOG_IN_CLEAR = 'LOG_IN_CLEAR';

@@ -1,31 +1,31 @@
 import {
-    AUTH_REQUEST,
-    AUTH_SUCCESS,
-    AUTH_FAIL,
-    AUTH_CLEAR,
+    LOG_IN_REQUEST,
+    LOG_IN_SUCCESS,
+    LOG_IN_FAIL,
+    LOG_IN_CLEAR,
 } from "./constants";
 import api from "utils/apiUtil";
 
-const actAuth = (user, navigate) => {
+const actLogin = (user, navigate) => {
     return (dispatch) => {
-        dispatch(actAuthRequest())
+        dispatch(actLoginRequest())
         api.post('QuanLyNguoiDung/DangNhap', user)
             .then((result) => {
                 if (result.data.statusCode === 200) {
                     const user = result.data.content
                     if ((user.maLoaiNguoiDung === 'QuanTri')) {
-                        dispatch(actAuthSuccess(user));
+                        dispatch(actLoginSuccess(user));
                         localStorage.setItem('UserAdmin', JSON.stringify(user));
                         navigate('/admin/dashboard', { replace: true })
                     } else {
-                        dispatch(actAuthSuccess(user));
+                        dispatch(actLoginSuccess(user));
                         localStorage.setItem('Customer', JSON.stringify(user));
                         navigate('/', { replace: true })
                     }
                 }
             })
             .catch((error) => {
-                dispatch(actAuthFail(error.response.data.content))
+                dispatch(actLoginFail(error.response.data.content))
             })
     };
 };
@@ -33,34 +33,34 @@ const actAuth = (user, navigate) => {
 const actLogout = (navigate) => {
     if (localStorage.getItem('UserAdmin')) {
         localStorage.removeItem('UserAdmin')
-        navigate('/auth', { replace: true })
+        navigate('/LOG_IN', { replace: true })
     } else if (localStorage.getItem('Customer')) {
         localStorage.removeItem('Customer')
         navigate('/', { replace: true })
     }
     return {
-        type: AUTH_CLEAR
+        type: LOG_IN_CLEAR
     };
 };
 
-const actAuthRequest = () => {
+const actLoginRequest = () => {
     return {
-        type: AUTH_REQUEST
+        type: LOG_IN_REQUEST
     };
 };
 
-const actAuthSuccess = (data) => {
+const actLoginSuccess = (data) => {
     return {
-        type: AUTH_SUCCESS,
+        type: LOG_IN_SUCCESS,
         payload: data
     };
 };
 
-const actAuthFail = (error) => {
+const actLoginFail = (error) => {
     return {
-        type: AUTH_FAIL,
+        type: LOG_IN_FAIL,
         payload: error
     };
 };
 
-export { actAuth, actLogout }
+export { actLogin, actLogout }

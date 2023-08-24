@@ -86,7 +86,7 @@ export default function ListFilm() {
 
             <NavLink
               key={1}
-              className="ml-3 text-2xl"
+              className='ml-3 text-2xl'
               to={`/admin/show-time/${film.maPhim}/${film.tenPhim}`}
               onClick={() => {
                 localStorage.setItem('filmParams', JSON.stringify({

@@ -161,10 +161,10 @@ export default function ManageUser() {
   return (
     <Fragment>
       <div
-        className="heading-page text-orange-800">
+        className='heading-page text-orange-800'>
         DANH SÁCH NGƯỜI DÙNG
       </div>
-      <hr className="h-divider mb-4" />
+      <hr className='h-divider mb-4' />
       <NavLink
         to={'/admin/add-user'}
         className='text-white button-add-new'
@@ -180,7 +180,7 @@ export default function ManageUser() {
         placeholder='input search text'
         enterButton={<SearchOutlined />}
         size='large'
-        type="text"
+        type='text'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

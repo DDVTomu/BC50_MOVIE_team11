@@ -21,5 +21,9 @@ const Loading = styled.div`
 `;
 
 export default function Loader() {
-  return <Loading $primary></Loading>;
+  return (
+    <div className="loading-overlay">
+      <Loading $primary></Loading>;
+    </div>
+  );
 }

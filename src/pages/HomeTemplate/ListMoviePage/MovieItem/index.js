@@ -11,7 +11,7 @@ export default class MovieItem extends Component {
           <div className="card-body">
             <h4 className="card-title">{movie.tenPhim}</h4>
             <p className="card-detail">{movie.moTa}</p>
-            <Link to={`/detail/${movie.maPhim}`} className="btn btn-success">
+            <Link to={`/detail/${movie.maPhim}`} className="btn btn-success btn-movie">
               Xem Thêm Chi Tiết
             </Link>
           </div>

@@ -312,8 +312,12 @@ code {
   position: fixed;
   z-index: 100;
   width: 100%;
-  & .navbar-collapse{
+  & .navbar-collapse {
     justify-content: end;
+  }
+  .user-nav {
+    margin-left: 30px;
+    align-items: center;
   }
 }
 
@@ -352,7 +356,9 @@ code {
       visibility: hidden;
     }
     & .btn {
-      display: block;
+      &-movie {
+        display: block;
+      }
     }
   }
   &-title {
@@ -368,18 +374,28 @@ code {
   }
 
   & .btn {
-    position: absolute;
-    width: 100%;
-    top: 10px;
-    right: 0;
-    display: none;
-    padding: 30px 0px;
-    font-size: 20px;
+    &-movie {
+      position: absolute;
+      width: 100%;
+      top: 10px;
+      right: 0;
+      display: none;
+      padding: 30px 0px;
+      font-size: 20px;
+    }
   }
 
   &-body {
     padding: 10px 0px;
     position: relative;
+  }
+}
+
+.btn {
+  &-buy {
+    width: 100%;
+    padding: 20px 0px !important;
+    border-radius: 0 !important;
   }
 }
 
@@ -412,4 +428,31 @@ code {
   background-color: #fff;
   padding: 40px;
   border-radius: 30px;
+}
+.loading-overlay {
+  position: absolute;
+  display: flex;
+  opacity: 1;
+  transition: all 0.4s ease-in;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  margin: auto 0;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  z-index: 100;
+  align-items: center;
+}
+
+.footer {
+  background-color: #343a40;
+  padding: 20px;
+  h4 {
+    color: #fff;
+    text-align: center;
+    margin: 0;
+  }
 }

@@ -21,7 +21,7 @@
 /*================= Collapse =================*/
 .collapse {
     display: none !important;
-    visibility: hidden !important;
+    visibility: visible !important;
     height: 0 !important;
     transition: height 0.15s ease-in-out, visibility 0.15s ease-in-out;
 }
@@ -31,7 +31,6 @@
     visibility: visible !important;
     transition: height 0.15s ease-in-out, visibility 0.15s ease-in-out;
     height: auto !important;
-    /* max-height: 500px; */
 }
 
 .collapsible {

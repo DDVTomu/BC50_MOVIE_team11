@@ -4,6 +4,8 @@ import _ from "lodash";
 import { actFetchPhongVe, actGetSeat, actRemoveSeat } from "./duck/actions";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import Loader from "components/Loader";
+import { render } from "node-sass";
 export default function PhongVe() {
   const params = useParams();
   const dispatch = useDispatch();
@@ -11,6 +13,8 @@ export default function PhongVe() {
   const { data, loading } = useSelector((state) => state.listPhongVeReducer);
   const { checked, isChecked } = useState(false);
   useEffect(() => dispatch(actFetchPhongVe(params.id)), []);
+  const admin = JSON.parse(localStorage.getItem("UserAdmin"));
+  const customer = JSON.parse(localStorage.getItem("Customer"));
 
   const handleChange = (event) => {
     const seat = event.target.value;
@@ -55,171 +59,185 @@ export default function PhongVe() {
     overflow: "hidden",
   };
 
+  // const handleBuy = () => {
+  //   if (admin || customer) {
+  //     window.location.reload();
+  //   } else {
+  //     return (
+  //       <div className="loading-overlay">
+  //         <h1> Text Here</h1>
+  //       </div>
+  //     );
+  //   }
+  // };
+
+  if (loading) return <Loader />;
   return (
     <>
-      {loading ? (
-        "isloading"
-      ) : (
-        <section className="phongve-section" style={bg}>
-          <div className="container">
-            <div className="detail-phim-box" style={{ display: "flex" }}>
-              <div>
-                <img width={250} src={data && thongTinPhim?.hinhAnh} />
-              </div>
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <td>Tên Phim</td>
-                    <td>{thongTinPhim?.tenPhim}</td>
-                  </tr>
-                  <tr>
-                    <td>Thời gian: </td>
-                    <td>
-                      {thongTinPhim?.ngayChieu} - ({thongTinPhim?.gioChieu})
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>Tên cụm rạp: </td>
-                    <td>{thongTinPhim?.tenRap}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Tên Rạp: </td>
-                    <td>{thongTinPhim?.tenCumRap}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Địa Chỉ: </td>
-                    <td>{thongTinPhim?.diaChi}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Chọn: </td>
-                    <td>
-                      {orderList?.map((order, key) => {
-                        return (
-                          <>
-                            <span> Ghế {order?.tenGhe},</span>
-                          </>
-                        );
-                      })}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Giá Vé: </td>
-                    <td>{giaVe} VND</td>
-                  </tr>
-                </tbody>
-              </table>
+      <section className="phongve-section" style={bg}>
+        <div className="container">
+          <div className="detail-phim-box" style={{ display: "flex" }}>
+            <div>
+              <img width={250} src={data && thongTinPhim?.hinhAnh} />
+              <button
+                className="btn btn-success btn-buy"
+                disabled={orderList?.length > 0 ? false : true}
+                // onClick={handleBuy}
+              >
+                Mua Vé
+              </button>
             </div>
+            <table className="table">
+              <tbody>
+                <tr>
+                  <td>Tên Phim</td>
+                  <td>{thongTinPhim?.tenPhim}</td>
+                </tr>
+                <tr>
+                  <td>Thời gian: </td>
+                  <td>
+                    {thongTinPhim?.ngayChieu} - ({thongTinPhim?.gioChieu})
+                  </td>
+                </tr>
 
-            <div className="select-seat">
-              <div className="w3ls-reg">
-                <ul className="template-seats">
-                  <li className="cat">
-                    <label className="example">
-                      {" "}
-                      <input
-                        type="checkbox"
-                        className="seats"
-                        value="Ghế đã chọn"
-                        disabled="true"
-                      />
-                      <span>"Ghế đã chọn"</span>
-                    </label>
-                  </li>
-                  <li className="cat">
+                <tr>
+                  <td>Tên cụm rạp: </td>
+                  <td>{thongTinPhim?.tenRap}</td>
+                </tr>
+
+                <tr>
+                  <td>Tên Rạp: </td>
+                  <td>{thongTinPhim?.tenCumRap}</td>
+                </tr>
+
+                <tr>
+                  <td>Địa Chỉ: </td>
+                  <td>{thongTinPhim?.diaChi}</td>
+                </tr>
+
+                <tr>
+                  <td>Chọn: </td>
+                  <td>
+                    {orderList?.map((order, key) => {
+                      return (
+                        <>
+                          <span> Ghế {order?.tenGhe},</span>
+                        </>
+                      );
+                    })}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Giá Vé: </td>
+                  <td>{giaVe} VND</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="select-seat">
+            <div className="w3ls-reg">
+              <ul className="template-seats">
+                <li className="cat">
+                  <label className="example">
                     {" "}
-                    <label className="example">
-                      {" "}
-                      <input
-                        type="checkbox"
-                        className="seats"
-                        value="Ghế chưa chọn"
-                      />
-                      <span>"Ghế chưa chọn"</span>
-                    </label>
-                  </li>
-                  <li className="cat">
+                    <input
+                      type="checkbox"
+                      className="seats"
+                      value="Ghế đã chọn"
+                      disabled="true"
+                    />
+                    <span>"Ghế đã chọn"</span>
+                  </label>
+                </li>
+                <li className="cat">
+                  {" "}
+                  <label className="example">
                     {" "}
-                    <label className="example vip">
-                      {" "}
-                      <input
-                        type="checkbox"
-                        className="seats"
-                        value="Ghế chưa chọn"
-                      />
-                      <span>"Ghế VIP chưa chọn"</span>
-                    </label>
-                  </li>
-                </ul>
-                {/* seat availabilty list */}
-                {/* seat layout */}
-                <div
-                  className="seatStructure txt-center"
-                  style={{ overflowX: "auto" }}
-                >
-                  <table id="seatsBlock">
-                    <tbody>
-                      {chunkedGhe.map((chunk, rowIndex) => (
-                        <ul className="seat-list">
-                          {chunk.map((chair) => {
-                            const value = JSON.stringify(chair);
-                            return (
-                              <li className="cat">
-                                <label
-                                  className={
-                                    chair.loaiGhe === "Vip" ? "vip" : ""
-                                  }
-                                  style={{ marginBottom: "0px" }}
-                                >
-                                  <input
-                                    name={`seat ${chair.tenGhe}`}
-                                    type="checkbox"
-                                    className={"seats"}
-                                    value={value}
-                                    disabled={chair.daDat}
-                                    onClick={handleChange}
-                                    checked={checked}
-                                  />
-                                  <span>{chair.tenGhe}</span>
-                                </label>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="screen">
-                    <p id="notification">
-                      <h2
-                        style={{
-                          marginBottom: 0,
-                          background: "#ff9800",
-                          letterSpacing: 1,
-                        }}
-                      >
-                        MÀN HÌNH CHÍNH
-                      </h2>
-                    </p>
-                  </div>
+                    <input
+                      type="checkbox"
+                      className="seats"
+                      value="Ghế chưa chọn"
+                    />
+                    <span>"Ghế chưa chọn"</span>
+                  </label>
+                </li>
+                <li className="cat">
+                  {" "}
+                  <label className="example vip">
+                    {" "}
+                    <input
+                      type="checkbox"
+                      className="seats"
+                      value="Ghế chưa chọn"
+                    />
+                    <span>"Ghế VIP chưa chọn"</span>
+                  </label>
+                </li>
+              </ul>
+              {/* seat availabilty list */}
+              {/* seat layout */}
+              <div
+                className="seatStructure txt-center"
+                style={{ overflowX: "auto" }}
+              >
+                <table id="seatsBlock">
+                  <tbody>
+                    {chunkedGhe.map((chunk, rowIndex) => (
+                      <ul className="seat-list">
+                        {chunk.map((chair) => {
+                          const value = JSON.stringify(chair);
+                          return (
+                            <li className="cat">
+                              <label
+                                className={chair.loaiGhe === "Vip" ? "vip" : ""}
+                                style={{ marginBottom: "0px" }}
+                              >
+                                <input
+                                  name={`seat ${chair.tenGhe}`}
+                                  type="checkbox"
+                                  className={"seats"}
+                                  value={value}
+                                  disabled={chair.daDat}
+                                  onClick={handleChange}
+                                  checked={checked}
+                                />
+                                <span>{chair.tenGhe}</span>
+                              </label>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="screen">
+                  <p id="notification">
+                    <h2
+                      style={{
+                        marginBottom: 0,
+                        background: "#ff9800",
+                        letterSpacing: 1,
+                      }}
+                    >
+                      MÀN HÌNH CHÍNH
+                    </h2>
+                  </p>
                 </div>
-                {/* //seat layout */}
-                {/* details after booking displayed here */}
-                <div
-                  className="displayerBoxes txt-center"
-                  style={{ overflowX: "auto" }}
-                >
-                  {/* <Orders /> */}
-                </div>
-                {/* //details after booking displayed here */}
               </div>
+              {/* //seat layout */}
+              {/* details after booking displayed here */}
+              <div
+                className="displayerBoxes txt-center"
+                style={{ overflowX: "auto" }}
+              >
+                {/* <Orders /> */}
+              </div>
+              {/* //details after booking displayed here */}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
     </>
   );
 }

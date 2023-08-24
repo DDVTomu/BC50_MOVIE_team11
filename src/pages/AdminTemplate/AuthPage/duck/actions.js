@@ -20,17 +20,17 @@ export const actAuth = (user, navigate) => {
           console.log(result.data);
           const user = result.data.content;
 
-          if (!(user.maLoaiNguoiDung === "QuanTri")) {
-            //show error
-            const error = {
-              response: {
-                data: {
-                  content: "Bạn không có quyền truy cập!",
-                },
-              },
-            };
-            return Promise.reject(error);
-          }
+          // if (!(user.maLoaiNguoiDung === "QuanTri")) {
+          //   //show error
+          //   const error = {
+          //     response: {
+          //       data: {
+          //         content: "Bạn không có quyền truy cập!",
+          //       },
+          //     },
+          //   };
+          //   return Promise.reject(error);
+          // }
 
           //tính thời gian hết hạn (tương lai = time now + exp)
           const date = new Date().getTime();
@@ -43,11 +43,25 @@ export const actAuth = (user, navigate) => {
           //QuanTri => lưu thông tin user
           dispatch(actAuthSuccess(user));
 
-          //QuanTri => lưu trang thái login
-          localStorage.setItem("UserAdmin", JSON.stringify(user));
+          const userType = user.maLoaiNguoiDung;
 
-          //QuanTri => redirect admin/dashboard
-          navigate("/admin/dashboard", { replace: true });
+          switch (userType) {
+            case "QuanTri":
+              //QuanTri => lưu trang thái login
+              localStorage.setItem("UserAdmin", JSON.stringify(user));
+
+              //QuanTri => redirect admin/dashboard
+              navigate("/admin/dashboard", { replace: true });
+              break;
+
+            case "KhachHang":
+              //QuanTri => lưu trang thái login
+              localStorage.setItem("UserCommon", JSON.stringify(user));
+
+              //QuanTri => redirect admin/dashboard
+              navigate("/", { replace: true });
+              break;
+          }
         }
       })
       .catch((error) => {

@@ -7,7 +7,7 @@ export default class Navbar extends Component {
       <nav className="navbar navbar-expand-md bg-dark navbar-dark">
         {/* Brand */}
         <a className="navbar-brand" href="#">
-          Navbar
+          Cybersoft Movies
         </a>
         {/* Toggler/collapsibe Button */}
         <button

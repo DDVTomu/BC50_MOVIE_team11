@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MovieItem from "./MovieItem";
 import GetLich from "../_components/GetLich";
+import Banner from "../_components/Banner";
 import { actFetchListMovie } from "./duck/actions";
 import { connect } from "react-redux";
 
@@ -17,11 +18,13 @@ class ListMoviePage extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h3>ListMoviePage</h3>
-        <div className="row">{this.renderListMovie()}</div>
-        <GetLich />
-      </div>
+      <>
+        <Banner />
+        <div className="container">
+          <div className="row">{this.renderListMovie()}</div>
+          <GetLich />
+        </div>
+      </>
     );
   }
 }

@@ -161,7 +161,7 @@ code {
       height: 50px;
     }
   }
-  & .react-tabs__tab-panel:not(.tab-level-2 .react-tabs__tab-panel, ) {
+  & .react-tabs__tab-panel:not(.tab-level-2 .react-tabs__tab-panel) {
     width: calc(100% - 70px);
     position: absolute;
     right: 0;
@@ -312,6 +312,9 @@ code {
   position: fixed;
   z-index: 100;
   width: 100%;
+  & .navbar-collapse{
+    justify-content: end;
+  }
 }
 
 .detail-phim,
@@ -398,13 +401,13 @@ code {
     height: 100%;
     backdrop-filter: blur(14px);
   }
-  & .container{
+  & .container {
     position: relative;
     z-index: 50;
   }
 }
 
-.select-seat{
+.select-seat {
   margin: 60px 0px;
   background-color: #fff;
   padding: 40px;

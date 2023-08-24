@@ -5,6 +5,7 @@ import authReducer from "pages/AdminTemplate/AuthPage/duck/reducer";
 import addUserReducer from "pages/AdminTemplate/AddUser/duck/reducer";
 import listLichChieuReducer from "pages/HomeTemplate/_components/GetLich/duck/reducer";
 import listPhongVeReducer from "pages/HomeTemplate/PhongVe/duck/reducer";
+import listBannerReducer from "pages/HomeTemplate/_components/Banner/duck/reducer";
 const rootReducer = combineReducers({
   //child reducer
   listMovieReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   authReducer,
   addUserReducer,
   listLichChieuReducer,
-  listPhongVeReducer
+  listPhongVeReducer,
+  listBannerReducer,
 });
 
 export default rootReducer;

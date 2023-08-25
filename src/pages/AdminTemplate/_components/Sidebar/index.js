@@ -19,8 +19,8 @@ export default function Sidebar() {
       </Fragment>,
       '1',
       [
-        getItem(<NavLink to={'/admin/dashboard'}>Danh sách</NavLink>, 'dashboard'),
-        getItem(<NavLink to={'/admin/add-user'}>Thêm mới</NavLink>, 'add-user'),
+        getItem(<NavLink to={'/admin/dashboard'}>Danh sách</NavLink>, 'admin/dashboard'),
+        getItem(<NavLink to={'/admin/add-user'}>Thêm mới</NavLink>, 'admin/add-user'),
       ]
     ),
 
@@ -32,8 +32,8 @@ export default function Sidebar() {
       </Fragment>,
       '2',
       [
-        getItem(<NavLink to={'/admin/film'}>Danh sách</NavLink>, 'film'),
-        getItem(<NavLink to={'/admin/add-film'}>Thêm mới</NavLink>, 'add-film'),
+        getItem(<NavLink to={'/admin/film'}>Danh sách</NavLink>, 'admin/film'),
+        getItem(<NavLink to={'/admin/add-film'}>Thêm mới</NavLink>, 'admin/add-film'),
       ]
     ),
   ];

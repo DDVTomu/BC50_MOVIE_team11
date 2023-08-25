@@ -1,3 +1,9 @@
+# Cybersoft Movie Team 11
+Admin Page + Login : Pham Huu Tri
+Home Page " API : Phan Quang Duc
+Report URL: https://docs.google.com/spreadsheets/d/11poGG3xzJnGHTukk5ZjVAd8moDV3NDUwShsY-cf7chk/edit#gid=0
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +74,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+

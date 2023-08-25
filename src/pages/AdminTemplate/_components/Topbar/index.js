@@ -1,8 +1,12 @@
-import React, { useState, Fragment } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Topbar({ pageTitle }) {
-  console.log('Topbar rendering'); // Add this line
+export default function Topbar() {
+  const userAdmin = JSON.parse(localStorage.getItem('UserAdmin'));
+
+  const handleLogout = () => {
+    localStorage.removeItem('UserAdmin');
+  };
 
   return (
     <nav className='navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow'>
@@ -17,7 +21,6 @@ export default function Topbar({ pageTitle }) {
       <div className='bg-white'>
         {/* ... */}
         <div className='flex items-center justify-start'>
-          <h2 className='text-xl font-semibold'>{pageTitle}</h2>
         </div>
         {/* ... */}
       </div>
@@ -25,50 +28,15 @@ export default function Topbar({ pageTitle }) {
       {/* Topbar Navbar */}
       <ul className='navbar-nav ml-auto'>
         {/* Nav Item - User Information */}
-        <li className='nav-item dropdown no-arrow'>
+        <li className='nav-item  no-arrow'>
           <a
-            className='nav-link dropdown-toggle'
-            href='/#'
-            id='userDropdown'
-            role='button'
-            data-toggle='dropdown'
-            aria-haspopup='true'
+            className='nav-link'
           >
             <span className='mr-3 d-none d-lg-inline text-green-700 font-medium '>
-              PHAM HUU TRI
+              {userAdmin?.hoTen}
             </span>
-            <img className='img-profile rounded-circle' />
+            <i className='fas fa-user fa-sm fa-fw mr-2 text-gray-400' />
           </a>
-          {/* Dropdown - User Information */}
-          <div
-            className={
-              'dropdown-menu dropdown-menu-right shadow animated--grow-in'
-            }
-            aria-labelledby='userDropdown'
-          >
-
-            <div className='dropdown-item' href='/#'>
-              <i className='fas fa-user fa-sm fa-fw mr-2 text-gray-400' />
-              <NavLink
-                to={'/admin/Profile'}
-              >Profile
-              </NavLink>
-            </div>
-
-            <div className='dropdown-divider' />
-
-            <div
-              className='dropdown-item'
-              href='/#'
-              data-toggle='modal'
-              data-target='#logoutModal'
-            >
-              <i className='fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400' />
-              <NavLink>
-                Logout
-              </NavLink>
-            </div>
-          </div>
         </li>
 
         {/* Divider */}
@@ -76,19 +44,20 @@ export default function Topbar({ pageTitle }) {
 
         {/* Nav Item - User Logout */}
         <li className='nav-item no-arrow'>
-          <a
+          <NavLink
             className='nav-link'
-            href='/#'
-            data-toggle='modal'
-            data-target='#logoutModal'
+            to='/'
+            onClick={(e) => {
+              handleLogout();
+            }}
           >
-            <span className='d-none d-lg-inline text-red-600  '>
+            <span className='d-none d-lg-inline text-red-600 hover:bg-orange-400 hover:text-white transition-all  '>
               Log Out
             </span>
-          </a>
+          </NavLink>
         </li>
+
       </ul>
     </nav >
-
   );
-}
+};

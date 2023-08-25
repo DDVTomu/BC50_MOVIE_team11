@@ -2,21 +2,23 @@ import {
   ADD_NEW_FILM_REQUEST,
   ADD_NEW_FILM_SUCCESS,
   ADD_NEW_FILM_FAIL,
-  CLEAR_NEW_FILM
 } from './constants';
 import api from 'utils/apiUtil';
 
-const actAddNewFilm = () => {
+const actAddNewFilm = (formData, navigate) => {
   return (dispatch) => {
     dispatch(actAddNewFilmRequest());
-    api.get('QuanLyPhim/LayDanhSachPhim?maNhom=GP02')
+    api.post('QuanLyPhim/ThemPhimUploadHinh', formData)
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actAddNewFilmSucess(result.data.content));
+          alert('Bạn đã thêm bộ phim mới thành công!');
+          navigate("/admin/film", { replace: true });
         }
       })
       .catch((error) => {
         dispatch(actAddNewFilmFail(error));
+        alert(error.message);
       })
   };
 };
@@ -41,13 +43,5 @@ const actAddNewFilmFail = (error) => {
   };
 };
 
-const actClearNewFilm = (navigate) => {
-  navigate('/admin/film', { replace: true })
-  return {
-    type: CLEAR_NEW_FILM,
-    payload: null
-  };
-};
-
-export { actAddNewFilm, actClearNewFilm };
+export { actAddNewFilm};
 

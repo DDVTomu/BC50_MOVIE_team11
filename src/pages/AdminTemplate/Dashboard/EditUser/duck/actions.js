@@ -13,12 +13,13 @@ const actUpdateUser = (formData, navigate) => {
             .then((result) => {
                 if (result.data.statusCode === 200) {
                     dispatch(actUpdateUserSuccess(result.data.content));
-                    alert('Sửa thông tin người dùng thành công');
+                    alert('Cập nhật thông tin người dùng thành công');
                     navigate('/admin/dashboard', { replace: true })
                 }
             })
             .catch((error) => {
                 dispatch(actUpdateUserFail(error));
+                alert(error.message);
             });
     };
 };

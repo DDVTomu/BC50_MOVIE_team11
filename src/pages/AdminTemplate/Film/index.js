@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Input, Table } from 'antd';
@@ -8,7 +8,11 @@ import {
   CalendarOutlined,
   SearchOutlined
 } from '@ant-design/icons';
-import { actManageFilm, actSearchFilm } from '../Film/duck/actions';
+import {
+  actManageFilm,
+  actSearchFilm,
+  actDeleteFilm
+} from '../Film/duck/actions';
 import { actDetailFilm } from '../Film/EditFilm/duck/actions';
 
 export default function ListFilm() {
@@ -58,7 +62,7 @@ export default function ListFilm() {
       dataIndex: '',
       render: (item, film) => {
         return (
-          <>
+          <Fragment>
             <NavLink
               className='text-2xl'
               to={`/admin/edit-film/${film.maPhim}`}
@@ -73,10 +77,9 @@ export default function ListFilm() {
             <NavLink
               className='ml-3 text-2xl'
               onClick={() => {
-                //Gọi action xoá
                 if (window.confirm('Bạn có chắc muốn xoá phim này không: ' + film.tenPhim)) {
-                  //Gọi action
-                  // dispatch(xoaPhimAction(film.maPhim));
+                  dispatch(actDeleteFilm(item.maPhim));
+                  dispatch(actManageFilm());
                 }
               }}
             ><DeleteOutlined
@@ -85,7 +88,6 @@ export default function ListFilm() {
             </NavLink>
 
             <NavLink
-              key={1}
               className='ml-3 text-2xl'
               to={`/admin/show-time/${film.maPhim}/${film.tenPhim}`}
               onClick={() => {
@@ -100,7 +102,7 @@ export default function ListFilm() {
                 className='text-green-800'
               />
             </NavLink>
-          </>
+          </Fragment>
         )
       },
       width: 80,
@@ -115,20 +117,23 @@ export default function ListFilm() {
         tenPhim: item.tenPhim,
         hinhAnh: <img width={120} height={100} src={item.hinhAnh} alt={item.tenPhim} />,
         moTa: item.moTa
-      }
+      };
     });
 
     return <Table
-      rowKey={'maPhim'}
       columns={columns}
       dataSource={data}
-      scroll={{
-        x: 1000,
-      }} />
+      scroll={{ x: 1000, }}
+    />
   };
 
   return (
-    <div>
+    <Fragment>
+      <div
+        className='heading-page text-cyan-600'>
+        DANH SÁCH PHIM
+      </div>
+      <hr className='h-divider mb-4' />
       <NavLink
         to={'/admin/add-film'}
         className='text-white button-add-new'
@@ -145,9 +150,9 @@ export default function ListFilm() {
         enterButton={<SearchOutlined />}
         size='large'
         onSearch={onSearch}
+        allowClear
       />
       {renderData()}
-    </div>
-
-  )
-}
+    </Fragment>
+  );
+};

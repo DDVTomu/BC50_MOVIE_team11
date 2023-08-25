@@ -2,7 +2,6 @@ import {
   ADD_NEW_FILM_REQUEST,
   ADD_NEW_FILM_SUCCESS,
   ADD_NEW_FILM_FAIL,
-  CLEAR_NEW_FILM
 } from './constants';
 
 const initailState = {
@@ -29,12 +28,6 @@ const addNewFilmReducer = (state = initailState, action) => {
       state.loading = false;
       state.data = null;
       state.error = action.payload;
-      return { ...state };
-    };
-    case CLEAR_NEW_FILM: {
-      state.loading = false;
-      state.data = null;
-      state.error = null;
       return { ...state };
     };
     default:

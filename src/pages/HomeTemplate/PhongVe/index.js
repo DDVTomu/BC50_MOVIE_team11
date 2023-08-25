@@ -64,15 +64,7 @@ export default function PhongVe() {
   };
 
   const handleBuy = () => {
-    const admin = JSON.parse(localStorage.getItem("UserAdmin"));
-    const customer = JSON.parse(localStorage.getItem("Customer"));
-
-    if (admin || customer) {
-      
-      window.location.reload();
-    } else {
-      return setPrompt(true);
-    }
+    return setPrompt(true);
   };
 
   if (loading) return <Loader />;

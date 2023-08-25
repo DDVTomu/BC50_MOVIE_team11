@@ -456,3 +456,18 @@ code {
     margin: 0;
   }
 }
+
+.prompt {
+  &-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+  }
+
+  &-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    column-gap: 30px;
+  }
+}

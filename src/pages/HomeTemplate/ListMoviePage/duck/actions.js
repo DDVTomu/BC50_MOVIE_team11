@@ -11,7 +11,7 @@ export const actFetchListMovie = () => {
     dispatch(actListMovieRequest());
 
     api
-      .get("QuanLyPhim/LayDanhSachPhim?maNhom=GP11")
+      .get("QuanLyPhim/LayDanhSachPhim?maNhom=GP01")
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actListMovieSuccess(result.data.content));

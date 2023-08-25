@@ -10,8 +10,6 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loader from "components/Loader";
 import UserPrompt from "components/UserPrompt";
-const admin = JSON.parse(localStorage.getItem("UserAdmin"));
-const customer = JSON.parse(localStorage.getItem("Customer"));
 
 export default function PhongVe() {
   const params = useParams();
@@ -66,10 +64,13 @@ export default function PhongVe() {
   };
 
   const handleBuy = () => {
+    const admin = JSON.parse(localStorage.getItem("UserAdmin"));
+    const customer = JSON.parse(localStorage.getItem("Customer"));
+
     if (admin || customer) {
+      
       window.location.reload();
     } else {
-      console.log("i'm here");
       return setPrompt(true);
     }
   };

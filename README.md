@@ -2,7 +2,7 @@
 Admin Page + Login : Pham Huu Tri
 Home Page " API : Phan Quang Duc
 Report URL: https://docs.google.com/spreadsheets/d/11poGG3xzJnGHTukk5ZjVAd8moDV3NDUwShsY-cf7chk/edit#gid=0
-
+Deploy URL: https://bc-50-movie-team11-3ozl.vercel.app/
 
 # Getting Started with Create React App
 

@@ -2,14 +2,25 @@ import {
     MANAGE_USER_REQUEST,
     MANAGE_USER_SUCCESS,
     MANAGE_USER_FAIL,
-    SEARCH_USER
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
 } from './constants';
 import api from 'utils/apiUtil';
 
-const actManageUser = () => {
+const actManageUser = (tuKhoa = '') => {
     return (dispatch) => {
         dispatch(actUserRequest());
-        api.get('QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01')
+        if (tuKhoa !== '') {
+            return api.get(`QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01&tuKhoa=${tuKhoa}`, tuKhoa)
+                .then((result) => {
+                    dispatch(actUserSuccess(result.data.content));
+                })
+                .catch((error) => {
+                    dispatch(actUserFail(error));
+                })
+        }
+        return api.get('QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01')
             .then((result) => {
                 dispatch(actUserSuccess(result.data.content));
             })
@@ -39,11 +50,39 @@ const actUserFail = (error) => {
     };
 };
 
-const actSearchUser = (searchTerm) => {
-    return {
-        type: SEARCH_USER,
-        payload: searchTerm,
+const actDeleteUser = (id) => {
+    return (dispatch) => {
+        dispatch(actDeleteUserRequest());
+        api.delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`)
+            .then((result) => {
+                dispatch(actDeleteUserSuccess(result.data.content));
+                alert('Bạn đã xóa người dùng thành công!');
+            })
+            .catch((error) => {
+                dispatch(actDeleteUserFail(error));
+                alert(error.message);
+            })
     };
 };
 
-export { actManageUser, actSearchUser };
+const actDeleteUserRequest = () => {
+    return {
+        type: DELETE_USER_REQUEST,
+    };
+};
+
+const actDeleteUserSuccess = (data) => {
+    return {
+        type: DELETE_USER_SUCCESS,
+        payload: data
+    };
+};
+
+const actDeleteUserFail = (error) => {
+    return {
+        type: DELETE_USER_FAIL,
+        payload: error
+    };
+};
+
+export { actManageUser, actDeleteUser };

@@ -23,7 +23,7 @@ const routes = [
         element: lazy(() => import("pages/HomeTemplate/DetailMoviePage")),
       },
       {
-        path:"phongve/:id",
+        path: "phongve/:id",
         element: lazy(() => import("pages/HomeTemplate/PhongVe")),
       }
     ],
@@ -35,37 +35,30 @@ const routes = [
       {
         path: "dashboard",
         element: lazy(() => import("./../pages/AdminTemplate/Dashboard")),
-        pageTitle: "Danh sách người dùng"
       },
       {
         path: "add-user",
         element: lazy(() => import("../pages/AdminTemplate/Dashboard/AddUser")),
-        pageTitle: "Thêm người dùng"
       },
       {
         path: "edit-user/:id",
         element: lazy(() => import("../pages/AdminTemplate/Dashboard/EditUser")),
-        pageTitle: "Chỉnh sửa người dùng"
       },
       {
         path: "film",
         element: lazy(() => import("../pages/AdminTemplate/Film")),
-        pageTitle: "Danh sách phim"
       },
       {
         path: "add-film",
         element: lazy(() => import("../pages/AdminTemplate/Film/AddFilm")),
-        pageTitle: "Thêm phim"
       },
       {
         path: "edit-film/:id",
         element: lazy(() => import("../pages/AdminTemplate/Film/EditFilm")),
-        pageTitle: "Chỉnh sửa phim"
       },
       {
         path: "/admin/show-time/:id/:name",
         element: lazy(() => import("../pages/AdminTemplate/Film/Showtime")),
-        pageTitle: "Tạo lịch chiếu"
       }
     ],
   },

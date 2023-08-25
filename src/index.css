@@ -66,3 +66,19 @@
 .field-input-edit{
     @apply border-2 rounded-md px-2 border-cyan-200;
 }
+
+.button-submit-edit{
+    @apply rounded-md bg-yellow-500 text-white p-2 hover:bg-yellow-600 transition-all;
+}
+
+.button-submit-addnew{
+    @apply rounded-md bg-green-500 text-white p-2 hover:bg-green-600 transition-all;
+}
+
+.button-submit-setnew{
+    @apply rounded-md bg-cyan-500 text-white p-2 hover:bg-cyan-600 transition-all;
+}
+
+.error-message {
+    @apply text-red-500 text-sm;
+}

@@ -1,45 +1,41 @@
-import React, { useState } from 'react';
-import { actRegister } from './duck/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate, NavLink } from 'react-router-dom';
+import { useFormik } from 'formik';
+import {
+  Form,
+  Input,
+} from 'antd';
+import { actRegister } from './duck/actions';
 
 export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.registerReducer);
+  const [componentSize, setComponentSize] = useState('default');
 
-  const [state, setState] = useState({
-    hoTen: '',
-    taiKhoan: '',
-    matKhau: '',
-    email: '',
-    soDt: '',
-    maNhom: 'GP01',
+  const onFormLayoutChange = ({ size }) => {
+    setComponentSize(size);
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      hoTen: '',
+      taiKhoan: '',
+      matKhau: '',
+      email: '',
+      soDT: '',
+      maLoaiNguoiDung: '',
+    },
+
+    onSubmit: async (values) => {
+      values.maNhom = 'GP01';
+      await dispatch(actRegister(values, navigate));
+    }
   });
 
-  const handleOnchange = (e) => {
-    const { name, value } = e.target
-    setState({
-      ...state,
-      [name]: value
-    })
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(actRegister(state, navigate));
-  };
-
-  const renderError = () => {
-    return (
-      error && (
-        <div className='alert alert-danger'>{error}</div>
-      )
-    );
-  };
-
   return (
-    <div>
+    <Fragment>
       <div className="container">
         <div className="card bg-light">
           <article className="card-body mx-auto" style={{ maxWidth: 400 }}>
@@ -47,92 +43,112 @@ export default function Register() {
               className="mt-3  text-center text-3xl text-blue-900 font-medium">
               ĐĂNG KÝ
             </div>
-            <hr className='h-divider my-3'/>
-            <form
-              onSubmit={handleSubmit}
+            <hr className='h-divider my-3' />
+            {/* <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmitForm}
+            > */}
+            <Form
+              size={componentSize}
+              onFinish={formik.handleSubmit}
+              onValuesChange={onFormLayoutChange}
             >
-              <div className="form-group input-group">
-                <div className="input-group-prepend">
-                  <span
-                    className="input-group-text">
-                    <i className="fa fa-user" />
-                  </span>
-                </div>
-                <input
-                  name='hoTen'
-                  className="form-control"
-                  placeholder="Họ tên"
-                  type="text"
-                  onChange={handleOnchange}
-                />
-              </div> {/* form-group// */}
 
-              <div className="form-group input-group">
-                <div className="input-group-prepend">
-                  <span
-                    className="input-group-text">
-                    <i className="fa fa-building" />
-                  </span>
-                </div>
-                <input
-                  name='taiKhoan'
-                  className="form-control"
-                  placeholder="Tên đăng nhập"
-                  type="text"
-                  onChange={handleOnchange}
-                />
-              </div> {/* form-group// */}
+              <Form.Item className='m-auto'>
+                <div className="form-group input-group">
+                  <div className="input-group-prepend ">
+                    <span
+                      className="input-group-text">
+                      <i className="fa fa-user" />
+                    </span>
+                  </div>
+                  <Input
+                    name='hoTen'
+                    className="form-control"
+                    placeholder="Họ tên"
+                    type="text"
+                    onChange={formik.handleChange}
+                  />
+                </div> {/* form-group// */}
+              </Form.Item>
 
-              <div className="form-group input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fa fa-lock" />
-                  </span>
-                </div>
-                <input
-                  name='matKhau'
-                  className="form-control"
-                  placeholder="Create password"
-                  type="text"
-                />
-              </div> {/* form-group// */}
+              <Form.Item className='m-auto'>
+                <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span
+                      className="input-group-text">
+                      <i className="fa fa-building" />
+                    </span>
+                  </div>
+                  <Input
+                    name='taiKhoan'
+                    className="form-control"
+                    placeholder="Tên đăng nhập"
+                    type="text"
+                    onChange={formik.handleChange}
+                  />
+                </div> {/* form-group// */}
+              </Form.Item>
 
-              <div className="form-group input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fa fa-envelope" />
-                  </span>
-                </div>
-                <input
-                  name='email'
-                  className="form-control"
-                  placeholder="Email"
-                  type="email"
-                />
-              </div> {/* form-group// */}
+              <Form.Item className='m-auto'>
+                <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">
+                      <i className="fa fa-lock" />
+                    </span>
+                  </div>
+                  <Input
+                    name='matKhau'
+                    className="form-control"
+                    placeholder="Create password"
+                    type="text"
+                    onChange={formik.handleChange}
+                  />
+                </div> {/* form-group// */}
+              </Form.Item>
 
-              <div className="form-group input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fa fa-phone" />
-                  </span>
-                </div>
-                <input
-                  name='soDt'
-                  className="form-control"
-                  placeholder="Số điện thoại"
-                  type="text"
-                />
-              </div> {/* form-group// */}
+              <Form.Item className='m-auto'>
+                <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">
+                      <i className="fa fa-envelope" />
+                    </span>
+                  </div>
+                  <Input
+                    name='email'
+                    className="form-control"
+                    placeholder="Email"
+                    type="email"
+                    onChange={formik.handleChange}
+                  />
+                </div> {/* form-group// */}
+              </Form.Item>
 
-              {error && renderError}
+              <Form.Item className='m-auto'>
+                <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">
+                      <i className="fa fa-phone" />
+                    </span>
+                  </div>
+                  <Input
+                    name='soDt'
+                    className="form-control"
+                    placeholder="Số điện thoại"
+                    type="text"
+                    onChange={formik.handleChange}
+                  />
+                </div> {/* form-group// */}
+              </Form.Item>
 
-              <div className="form-group">
-                <button
-                  type="submit"
-                  className="btn btn-success btn-block"> Đăng Ký
-                </button>
-              </div> {/* form-group// */}
+              <Form.Item className='m-auto'>
+                <div className="form-group">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-block"> Đăng Ký
+                  </button>
+                </div> {/* form-group// */}
+              </Form.Item>
 
               <div className='btn-redirect-login text-center'>
                 <div>
@@ -141,13 +157,12 @@ export default function Register() {
                   </NavLink>
                 </div>
               </div>
-            </form>
-          </article>
-          
-        </div> {/* card.// */}
-      </div>
+            </Form>
+            {/* </Formik> */}
+          </article >
+        </div > {/* card.// */}
+      </div >
       {/*container end.//*/}
-    </div>
-
-  )
-}
+    </Fragment >
+  );
+};

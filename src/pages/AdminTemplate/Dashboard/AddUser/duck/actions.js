@@ -5,15 +5,18 @@ import {
 } from './constants';
 import api from 'utils/apiUtil';
 
-const actAddNewUser = () => {
+const actAddNewUser = (formData, navigate) => {
     return (dispatch) => {
         dispatch(actAddNewRequest());
-        api.get('QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01')
+        api.post('QuanLyNguoiDung/ThemNguoiDung', formData)
             .then((result) => {
                 dispatch(actAddNewSuccess(result.data.content));
+                alert('Bạn đã thêm người dùng mới thành công!');
+                navigate("/admin/dashboard", { replace: true });
             })
             .catch((error) => {
                 dispatch(actAddNewFail(error));
+                alert(error.message);
             })
     };
 };

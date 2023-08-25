@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -7,13 +7,13 @@ import {
   Select,
   Radio
 } from 'antd';
-import { Formik} from 'formik';
+import { Formik } from 'formik';
 import { actAddNewUser } from './duck/actions';
 
 const AddUser = () => {
-  const [componentSize, setComponentSize] = useState('default');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [componentSize, setComponentSize] = useState('default');
   const [form] = Form.useForm();
 
   const onFormLayoutChange = ({ size }) => {
@@ -29,34 +29,33 @@ const AddUser = () => {
     maLoaiNguoiDung: '',
   };
 
-  const onSubmitForm = () => {
-    dispatch(actAddNewUser(navigate));
+  const onSubmitForm = (values) => {
+    values.maNhom = 'GP01';
+    dispatch(actAddNewUser(values, navigate));
   };
 
   return (
     <Fragment>
-      <div
-        className='heading-page text-cyan-700'>
-        THÊM NGƯỜI MỚI
-      </div>
-      <hr className='h-divider mb-4' />
-
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmitForm}
       >
         <Form
           form={form}
-          onFinish={onSubmitForm}
-          onValuesChange={onFormLayoutChange}
-          labelCol={{ span: 4, }}
-          wrapperCol={{ span: 14, }}
           layout='horizontal'
           size={componentSize}
-          style={{ maxWidth: 600, }}
-
-
+          labelCol={{ span: 4, }}
+          wrapperCol={{ span: 14, }}
+          style={{ maxWidth: 1000, }}
+          onFinish={onSubmitForm}
+          onValuesChange={onFormLayoutChange}
         >
+          <div
+            className='heading-page text-green-800'>
+            THÊM NGƯỜI MỚI
+          </div>
+          <hr className='h-divider mb-4' />
+
           <Form.Item
             label='Kích thước chữ'
             name='size'
@@ -127,7 +126,7 @@ const AddUser = () => {
           <Form.Item
             label='Mã Loại'
             name='maLoaiNguoiDung'
-            rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
+            rules={[{ required: true, message: 'Vui lòng loại người dùng' }]}
           >
             <Select
               placeholder='Chọn loại người dùng'
@@ -142,9 +141,9 @@ const AddUser = () => {
           >
             <button
               type='submit'
-              className='rounded-md bg-green-600 text-white p-2'
+              className='button-submit-addnew'
             >
-              Thêm phim
+              Thêm mới
             </button>
           </Form.Item>
         </Form>

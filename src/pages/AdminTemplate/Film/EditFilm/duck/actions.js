@@ -19,7 +19,8 @@ const actDetailFilm = (id) => {
         }
       })
       .catch((error) => {
-        dispatch(actDetailFilmFail(error))
+        dispatch(actDetailFilmFail(error));
+        alert(error.message);
       })
   };
 };
@@ -51,12 +52,13 @@ const actUpdateFilm = (formData, navigate) => {
       .then((result) => {
         if (result.data.statusCode === 200) {
           dispatch(actUpdateFilmSuccess(result.data.content));
-          alert(result.data.message)
+          alert('Cập nhật thông tin phim thành công')
           navigate('/admin/film', { replace: true })
         }
       })
       .catch((error) => {
         dispatch(actUpdateFilmFail(error));
+        alert(error.message);
       });
   };
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Table, Input } from 'antd';
@@ -7,9 +7,13 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-
-import { actManageUser, actSearchUser } from './duck/actions';
-import { actDetailUser } from '../Dashboard/EditUser/duck/actions';
+import {
+  actManageUser,
+  actDeleteUser,
+} from './duck/actions';
+import {
+  actDetailUser
+} from '../Dashboard/EditUser/duck/actions';
 
 export default function ManageUser() {
   const dispatch = useDispatch();
@@ -19,7 +23,7 @@ export default function ManageUser() {
 
   useEffect(() => {
     dispatch(actManageUser());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (userDetail) {
@@ -27,13 +31,10 @@ export default function ManageUser() {
     }
   }, [userDetail, navigate]);
 
-  //=========== SEARCH not finished ===========
   const { Search } = Input;
-  const [searchTerm, setSearchTerm] = useState('');
-  const handleSearch = () => {
-    dispatch(actSearchUser(searchTerm));
+  const onSearch = value => {
+    dispatch(actManageUser(value));
   };
-  //=========== SEARCH not finished ===========
 
   const handleInfoEditUser = async (email) => {
     const user = dataUser?.find((user) => user.email === email);
@@ -112,7 +113,7 @@ export default function ManageUser() {
       width: '15%',
       render: (text, record) => record.tacVu,
     }
-  ]
+  ];
 
   const renderData = () => {
     if (!dataUser) {
@@ -142,9 +143,9 @@ export default function ManageUser() {
             key={2}
             className='ml-3 text-3xl'
             onClick={() => {
-              if (window.confirm('Bạn có chắc muốn xoá người này không: ' + item.hoTen)) {
-                //Gọi action
-                // dispatch(xoaUserAction(item.email));
+              if (window.confirm('Bạn có chắc muốn xoá tài khoản này không: ' + item.taiKhoan)) {
+                dispatch(actDeleteUser(item.taiKhoan));
+                dispatch(actManageUser());
               }
             }}
           ><DeleteOutlined
@@ -161,7 +162,7 @@ export default function ManageUser() {
   return (
     <Fragment>
       <div
-        className='heading-page text-orange-800'>
+        className='heading-page text-cyan-600'>
         DANH SÁCH NGƯỜI DÙNG
       </div>
       <hr className='h-divider mb-4' />
@@ -179,14 +180,14 @@ export default function ManageUser() {
         className='my-4 bg-blue-500'
         placeholder='input search text'
         enterButton={<SearchOutlined />}
+        type="text"
         size='large'
-        type='text'
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onSearch={onSearch}
+        allowClear
       />
       {renderData()}
     </Fragment>
-  )
+  );
 };
 
 

@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Formik, useFormik } from 'formik';
-import moment from 'moment';
+import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 import {
     Form,
     Input,
@@ -15,10 +15,10 @@ import {
 import { actAddNewFilm } from './duck/actions';
 
 const AddFilm = () => {
-    const [componentSize, setComponentSize] = useState('default');
-    const [imgSrc, setImgSrc] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [componentSize, setComponentSize] = useState('default');
+    const [imgSrc, setImgSrc] = useState('');
 
     const formik = useFormik({
         initialValues: {
@@ -43,18 +43,18 @@ const AddFilm = () => {
                     formData.append('File', values.hinhAnh, values.hinhAnh.name);
                 };
             }
-            dispatch(actAddNewFilm(navigate));
-        }
-    })
+            dispatch(actAddNewFilm(formData, navigate));
+        },
+    });
 
-    const [form] = Form.useForm();
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
     };
 
-    const handleChangeDate = (value) => {
+
+    const handleChangeDate = (value, string) => {
         let ngayKhoiChieu = moment(value);
-        formik.setFieldValue('ngayKhoiChieu', ngayKhoiChieu);
+        formik.setFieldValue('ngayKhoiChieu', string);
     };
 
     const handleChangeSwitch = (name) => {
@@ -71,32 +71,31 @@ const AddFilm = () => {
 
     const handleChangeFile = (e) => {
         let file = e.target.files[0];
-        if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/gif' || file.type === 'image/png') {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (e) => {
-                setImgSrc(e.target.result);
-            }
-            formik.setFieldValue('hinhAnh', file);
-        };
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            setImgSrc(e.target.result);
+        }
+        formik.setFieldValue('hinhAnh', file);
     };
 
     return (
         <Fragment>
-            <div
-                className='heading-page text-cyan-800'>
-                THÊM PHIM MỚI
-            </div>
-            <hr className='h-divider mb-4' />
             <Form
-                form={form}
-                onSubmitCapture={formik.handleSubmit}
-                onValuesChange={onFormLayoutChange}
-                labelCol={{ span: 4, }}
-                wrapperCol={{ span: 14, }}
                 layout='horizontal'
                 size={componentSize}
+                labelCol={{ span: 4, }}
+                wrapperCol={{ span: 14, }}
+                style={{ maxWidth: 1000, }}
+                onSubmitCapture={formik.handleSubmit}
+                onValuesChange={onFormLayoutChange}
             >
+                <div
+                    className='heading-page text-green-800'>
+                    THÊM PHIM MỚI
+                </div>
+                <hr className='h-divider mb-4' />
+
                 <Form.Item
                     label='Kích thước chữ'
                     name='size'
@@ -159,7 +158,6 @@ const AddFilm = () => {
                 <Form.Item
                     label='Đang chiếu'
                     name='dangChieu'
-                    rules={[{ required: true, message: 'Vui lòng nhập ngày đang chiếu' }]}
                 >
                     <Switch
                         placeholder='Nhập ngày đang chiếu'
@@ -170,7 +168,6 @@ const AddFilm = () => {
                 <Form.Item
                     label='Sắp chiếu'
                     name='sapChieu'
-                    rules={[{ required: true, message: 'Vui lòng nhập ngày sắp chiếu' }]}
                 >
                     <Switch
                         placeholder='Nhập ngày sắp chiếu'
@@ -181,8 +178,6 @@ const AddFilm = () => {
                 <Form.Item
                     label='Hot'
                     name='hot'
-                    rules={[{ required: true, message: 'Vui lòng nhập độ hot phim' }]}
-
                 >
                     <Switch
                         placeholder='Nhập độ hot phim'
@@ -193,7 +188,6 @@ const AddFilm = () => {
                 <Form.Item
                     label='Số sao'
                     name='danhGia'
-                    rules={[{ required: true, message: 'Vui lòng nhập số sao' }]}
                 >
                     <InputNumber
                         placeholder='Nhập số sao'
@@ -222,11 +216,11 @@ const AddFilm = () => {
                 </Form.Item>
 
                 <Form.Item
-                    label='Hành động'
+                    label='Thao tác'
                 >
                     <button
                         type='submit'
-                        className='rounded-md bg-green-600 text-white p-2'
+                        className='button-submit-addnew'
                     >
                         Thêm phim
                     </button>

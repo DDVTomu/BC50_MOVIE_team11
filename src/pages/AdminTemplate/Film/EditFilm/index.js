@@ -12,9 +12,8 @@ import {
   Switch,
 } from 'antd';
 import { actDetailFilm, actUpdateFilm } from './duck/actions';
-import { actDetailCinema } from '../Showtime/duck/actions';
 
-const EditFilm = (props) => {
+const EditFilm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const param = useParams();
@@ -25,7 +24,8 @@ const EditFilm = (props) => {
 
   useEffect(() => {
     dispatch(actDetailFilm(param.id));
-  }, []);
+  }, [dispatch, param.id]);
+  
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -91,26 +91,21 @@ const EditFilm = (props) => {
 
   return (
     <Fragment>
-      <div
-        className='heading-page text-yellow-700'>
-        CHỈNH SỬA THÔNG TIN
-      </div>
-      <hr className='h-divider mb-4' />
       <Form
-        onSubmitCapture={formik.handleSubmit}
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 14,
-        }}
         layout='horizontal'
-        initialValues={{
-          size: componentSize,
-        }}
-        onValuesChange={onFormLayoutChange}
         size={componentSize}
+        labelCol={{ span: 4, }}
+        wrapperCol={{ span: 14, }}
+        style={{ maxWidth: 1000, }}
+        onSubmitCapture={formik.handleSubmit}
+        onValuesChange={onFormLayoutChange}
       >
+        <div
+          className='heading-page text-orange-800'>
+          CHỈNH SỬA THÔNG TIN
+        </div>
+        <hr className='h-divider mb-4' />
+
         <Form.Item
           label='Kích thước chữ'
           name='size'
@@ -128,7 +123,7 @@ const EditFilm = (props) => {
           <Input
             name='tenPhim'
             onChange={formik.handleChange}
-            value={data && data.tenPhim}
+            value={formik.values.tenPhim}
           />
         </Form.Item>
 
@@ -139,7 +134,7 @@ const EditFilm = (props) => {
           <Input
             name='trailer'
             onChange={formik.handleChange}
-            value={data && data.trailer}
+            value={formik.values.trailer}
           />
         </Form.Item>
 
@@ -149,7 +144,7 @@ const EditFilm = (props) => {
           <Input
             name='moTa'
             onChange={formik.handleChange}
-            value={data && data.moTa}
+            value={formik.values.moTa}
           />
         </Form.Item>
 
@@ -159,7 +154,7 @@ const EditFilm = (props) => {
           <DatePicker
             format='DD/MM/YYYY'
             onChange={handleChangeDate}
-            value={data && moment(data.ngayKhoiChieu)}
+            value={moment(formik.values.ngayKhoiChieu)}
           />
         </Form.Item>
 
@@ -220,7 +215,7 @@ const EditFilm = (props) => {
         <Form.Item label='Thao tác'>
           <button
             type='submit'
-            className='rounded-md bg-yellow-500 text-white p-2'
+            className='button-submit-edit'
           >
             Cập nhật
           </button>

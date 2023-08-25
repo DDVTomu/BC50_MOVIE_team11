@@ -5,6 +5,9 @@ import {
     DETAIL_CINEMA_REQUEST,
     DETAIL_CINEMA_SUCCESS,
     DETAIL_CINEMA_FAIL,
+    ADD_NEW_CALENDAR_REQUEST,
+    ADD_NEW_CALENDAR_SUCCESS,
+    ADD_NEW_CALENDAR_FAIL
 } from './constants';
 import api from 'utils/apiUtil';
 
@@ -43,8 +46,7 @@ const actManageCinemaFail = (error) => {
     };
 };
 
-// KHONG THANH CONG
-const actDetailCinema  = (id) => {
+const actDetailCinema = (id) => {
     return (dispatch) => {
         dispatch(actDetailCinemaRequest());
         api.get(`QuanLyRap/LayThongTinCumRapTheoHeThong?maHeThongRap=${id}`)
@@ -79,4 +81,42 @@ const actDetailCinemaFail = (error) => {
     };
 };
 
-export { actManageCinema, actDetailCinema };
+const actAddNewCalendar = (formData, navigate) => {
+    return (dispatch) => {
+        dispatch(actAddNewCalendarRequest());
+        api.post('QuanLyDatVe/TaoLichChieu', formData)
+            .then((result) => {
+                if (result.data.statusCode === 200) {
+                    dispatch(actAddNewCalendarSucess(result.data.content));
+                    alert('Bạn đã tạo lịch chiếu thành công');
+                    navigate('/admin/film', { replace: true })
+                }
+            })
+            .catch((error) => {
+                dispatch(actAddNewCalendarFail(error));
+                alert(error.message);
+            })
+    };
+};
+
+const actAddNewCalendarRequest = () => {
+    return {
+        type: ADD_NEW_CALENDAR_REQUEST,
+    };
+};
+
+const actAddNewCalendarSucess = (data) => {
+    return {
+        type: ADD_NEW_CALENDAR_SUCCESS,
+        payload: data
+    };
+};
+
+const actAddNewCalendarFail = (error) => {
+    return {
+        type: ADD_NEW_CALENDAR_FAIL,
+        payload: error
+    };
+};
+
+export { actManageCinema, actDetailCinema, actAddNewCalendar };

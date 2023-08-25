@@ -5,20 +5,22 @@ import {
 } from './constants';
 import api from 'utils/apiUtil';
 
-const actRegister = (user, navigate) => {
+const actRegister = (formData, navigate) => {
   return (dispatch) => {
     dispatch(actRegisterRequest());
-    api.post('QuanLyNguoiDung/DangKy', user)
+    api.post('QuanLyNguoiDung/DangKy', formData)
       .then((result) => {
         if (result.data.statusCode === 200) {
           const user = result.data.content;
           dispatch(actRegisterSuccess(user));
           localStorage.setItem('Register', JSON.stringify(user));
+          alert('Đăng ký thành công');
           navigate('/auth', { replace: true });
         }
       })
       .catch((error) => {
         dispatch(actRegisterFail(error));
+        alert('Đăng ký thất bại');
       })
   };
 };

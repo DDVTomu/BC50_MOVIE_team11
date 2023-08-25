@@ -8,23 +8,31 @@ import listBannerReducer from "pages/HomeTemplate/_components/Banner/duck/reduce
 
 // import authReducer from "pages/AdminTemplate/AuthPage/duck/reducer";
 import loginReducer from "../pages/AdminTemplate/LoginPage/duck/reducer";
+import registerReducer from "../pages/AdminTemplate/RegisterPage/duck/reducer";
 
-import manageUserReducer from './../pages/AdminTemplate/Dashboard/duck/reducer';
-// import addNewUserReducer from './../pages/AdminTemplate/Dashboard/AddUser/duck/reducer';
+import {
+  manageUserReducer,
+  deleteUserReducer,
+} from './../pages/AdminTemplate/Dashboard/duck/reducer';
+import addNewUserReducer from './../pages/AdminTemplate/Dashboard/AddUser/duck/reducer';
 import {
   updateUserReducer,
   detailUserReducer,
 } from "./../pages/AdminTemplate/Dashboard/EditUser/duck/reducer";
 
-import manageFilmReducer from "./../pages/AdminTemplate/Film/duck/reducer";
+import {
+  manageFilmReducer,
+  deleteFilmReducer,
+} from "./../pages/AdminTemplate/Film/duck/reducer";
 import addNewFilmReducer from "./../pages/AdminTemplate/Film/AddFilm/duck/reducer";
 import {
-  detailFilmReducer,
-  updateFilmReducer
+  updateFilmReducer,
+  detailFilmReducer
 } from "./../pages/AdminTemplate/Film/EditFilm/duck/reducer";
+
 import {
-  manageCinemaReducer,
-  detailCinemaReducer
+  infoShowTimeReducer,
+  addNewCalendarReducer
 } from "../pages/AdminTemplate/Film/Showtime/duck/reducer";
 
 const rootReducer = combineReducers({
@@ -38,19 +46,22 @@ const rootReducer = combineReducers({
 
   // authReducer,
   loginReducer,
+  registerReducer,
 
   manageUserReducer,
-  // addNewUserReducer,
-  updateUserReducer,
+  deleteUserReducer,
+  addNewUserReducer,
   detailUserReducer,
+  updateUserReducer,
 
   manageFilmReducer,
+  deleteFilmReducer,
   addNewFilmReducer,
   detailFilmReducer,
   updateFilmReducer,
 
-  manageCinemaReducer,
-  detailCinemaReducer,
+  infoShowTimeReducer,
+  addNewCalendarReducer
 });
 
 export default rootReducer;

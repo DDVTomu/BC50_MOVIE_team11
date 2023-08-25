@@ -2,15 +2,15 @@ import {
     MANAGE_USER_REQUEST,
     MANAGE_USER_SUCCESS,
     MANAGE_USER_FAIL,
-    SEARCH_USER
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
 } from './constants';
 
 const initailState = {
     loading: false,
     data: null,
     error: null,
-    users: [],
-    searchResults: [],
 };
 
 const manageUserReducer = (state = initailState, action) => {
@@ -33,18 +33,34 @@ const manageUserReducer = (state = initailState, action) => {
             state.error = action.payload;
             return { ...state };
         }
-        case SEARCH_USER:
-            const searchTerm = action.payload;
-            const searchResults = state.users.filter((user) =>
-                user.hoTen.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            return {
-                ...state,
-                searchResults,
-            };
         default:
             return { ...state };
     }
 };
 
-export default manageUserReducer;
+const deleteUserReducer = (state = initailState, action) => {
+    switch (action.type) {
+        case DELETE_USER_REQUEST: {
+            state.loading = true;
+            state.data = null;
+            state.error = null;
+            return { ...state };
+        }
+        case DELETE_USER_SUCCESS: {
+            state.loading = false;
+            state.data = action.payload;
+            state.error = null;
+            return { ...state };
+        }
+        case DELETE_USER_FAIL: {
+            state.loading = false;
+            state.data = null;
+            state.error = action.payload;
+            return { ...state };
+        }
+        default:
+            return { ...state };
+    }
+};
+
+export { manageUserReducer, deleteUserReducer };

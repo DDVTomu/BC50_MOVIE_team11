@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-
+import React from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import Sidebar from './_components/Sidebar';
 import Topbar from './_components/Topbar';
 
-const AdminTemplate = ({ children }) => {
-  //===================================================================================================
+const AdminTemplate = () => {
   //Check login
-  // if (!localStorage.getItem('UserAdmin')) {
-  //   return <Navigate to='/auth' replace />
-  // }
-
-  // const [pageTitle, setPageTitle] = useState('');
-
-  // useEffect(() => {
-  //   // Update pageTitle here based on the current route or other logic
-  //   setPageTitle('Title for the current page');
-  // }, []);
+  if (!localStorage.getItem('UserAdmin')) {
+    return <Navigate to='/auth' replace />
+  }
 
   return (
     <div className='flex w-screen h-screen'>

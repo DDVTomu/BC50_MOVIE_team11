@@ -36,6 +36,8 @@ export default function Login(props) {
 
   if (localStorage.getItem('UserAdmin')) {
     return <Navigate replace to='/admin/dashboard' />
+  } else if (localStorage.getItem('Customer')) {
+    return <Navigate replace to='/admin/film' />
   }
 
   return (

@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
-import {
-  actFetchPhongVe,
-  actGetSeat,
-  actRemoveSeat,
-} from "../../bak/HomeTemplate/PhongVe/duck/actions";
+import { actFetchPhongVe, actGetSeat, actRemoveSeat } from "./duck/actions";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loader from "components/Loader";
-import UserPrompt from "components/UserPrompt";
-const admin = JSON.parse(localStorage.getItem("UserAdmin"));
-const customer = JSON.parse(localStorage.getItem("Customer"));
 
 export default function PhongVe() {
   const params = useParams();
@@ -19,8 +12,9 @@ export default function PhongVe() {
 
   const { data, loading } = useSelector((state) => state.listPhongVeReducer);
   const { checked, isChecked } = useState(false);
-  const [prompt, setPrompt] = useState(false);
   useEffect(() => dispatch(actFetchPhongVe(params.id)), []);
+  const admin = JSON.parse(localStorage.getItem("UserAdmin"));
+  const customer = JSON.parse(localStorage.getItem("Customer"));
 
   const handleChange = (event) => {
     const seat = event.target.value;
@@ -65,19 +59,11 @@ export default function PhongVe() {
     overflow: "hidden",
   };
 
-  const handleBuy = () => {
-    if (admin || customer) {
-      window.location.reload();
-    } else {
-      console.log("i'm here");
-      return setPrompt(true);
-    }
-  };
+
 
   if (loading) return <Loader />;
   return (
     <>
-      {prompt && <UserPrompt />}
       <section className="phongve-section" style={bg}>
         <div className="container">
           <div className="detail-phim-box" style={{ display: "flex" }}>
@@ -86,7 +72,7 @@ export default function PhongVe() {
               <button
                 className="btn btn-success btn-buy"
                 disabled={orderList?.length > 0 ? false : true}
-                onClick={handleBuy}
+                // onClick={handleBuy}
               >
                 Mua Vé
               </button>
@@ -185,23 +171,6 @@ export default function PhongVe() {
                 className="seatStructure txt-center"
                 style={{ overflowX: "auto" }}
               >
-                {" "}
-                <div className="screen">
-                  <p id="notification">
-                    <h2
-                      style={{
-                        marginBottom: 0,
-                        background: "#ff9800",
-                        letterSpacing: 1,
-                        padding: "20px",
-                        color: "#fff",
-                        marginBottom: "30px",
-                      }}
-                    >
-                      MÀN HÌNH CHÍNH
-                    </h2>
-                  </p>
-                </div>
                 <table id="seatsBlock">
                   <tbody>
                     {chunkedGhe.map((chunk, rowIndex) => (
@@ -232,6 +201,19 @@ export default function PhongVe() {
                     ))}
                   </tbody>
                 </table>
+                <div className="screen">
+                  <p id="notification">
+                    <h2
+                      style={{
+                        marginBottom: 0,
+                        background: "#ff9800",
+                        letterSpacing: 1,
+                      }}
+                    >
+                      MÀN HÌNH CHÍNH
+                    </h2>
+                  </p>
+                </div>
               </div>
               {/* //seat layout */}
               {/* details after booking displayed here */}
